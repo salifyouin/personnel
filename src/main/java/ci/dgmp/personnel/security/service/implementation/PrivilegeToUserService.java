@@ -24,7 +24,7 @@ public class PrivilegeToUserService implements PrivilegeToUserIservice {
         if(ptuRepo.existsPrivilegeForUser(ptuDto.getUserId(), ptuDto.getPrivilegeId(), ptuDto.getAssStrId())) {
             ptu.setAssId(ptuRepo.getPrivilegeForUser(ptuDto.getUserId(), ptuDto.getPrivilegeId(), ptuDto.getAssStrId()).getAssId());
         }
-        ptu.setAssActive(true);
+        ptu.setAssActive(1L);
         ptuRepo.save(ptu);
     }
 
@@ -35,7 +35,7 @@ public class PrivilegeToUserService implements PrivilegeToUserIservice {
         if(ptuRepo.existsPrivilegeForUser(ptuDto.getUserId(), ptuDto.getPrivilegeId(), ptuDto.getAssStrId())) {
             ptu1.setAssId(ptuRepo.getPrivilegeForUser(ptuDto.getUserId(), ptuDto.getPrivilegeId(), ptuDto.getAssStrId()).getAssId());
         }
-        ptu1.setAssActive(false);
+        ptu1.setAssActive(0L);
         ptuRepo.save(ptu1);
     }
 
@@ -48,7 +48,7 @@ public class PrivilegeToUserService implements PrivilegeToUserIservice {
         {
             ptu = ptuRepo.getPrivilegeForUser(userId, prvId, strId);
         }
-        ptu.setAssActive(false);
+        ptu.setAssActive(0L);
         ptuRepo.save(ptu);
     }
 }

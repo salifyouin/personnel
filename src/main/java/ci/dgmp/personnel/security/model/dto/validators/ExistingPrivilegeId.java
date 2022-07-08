@@ -17,7 +17,7 @@ import java.lang.annotation.*;
 public @interface ExistingPrivilegeId
 {
     String message() default "PrivilegeId introuvable";
-    Class<?>[] group() default {};
+    Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 
     @Component @RequiredArgsConstructor

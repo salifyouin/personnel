@@ -22,7 +22,7 @@ public abstract class Assignation {
     protected Long assId;
     protected LocalDate assDateDebut;
     protected LocalDate assDateFin;
-    protected boolean assActive;
+    protected Long assActive;
     @ManyToOne @JoinColumn(name = "assStrId")
     protected Structure structure;
 }

@@ -25,6 +25,6 @@ public class RoleToUserReqDto
     //@Temporal(TemporalType.DATE) // Pour JPA. Signifie que dans la BD la date aura le type Date et non le type TimeStamp
     @DateTimeFormat(pattern = "yyyy-MM-dd") // Spring formate la date pour nous
     private LocalDate assDateFin;
-    private boolean assActive;
+    private Long assActive;
     private Long assStrId;
 }

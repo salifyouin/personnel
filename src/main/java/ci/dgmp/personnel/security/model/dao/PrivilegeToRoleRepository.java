@@ -22,7 +22,7 @@ public interface PrivilegeToRoleRepository extends JpaRepository<PrivilegeToRole
     List<PrivilegeToRoleInfo> findByRole_RoleIdOrderByAssIdDesc(long roleId);
 
 
-    @Query("select (count(p) > 0) from PrivilegeToRole p where p.role.roleId = ?1 and p.privilege.privilegeId = ?2 and p.assActive = true and coalesce(p.assDateDebut, current_date) <= current_date and coalesce(p.assDateFin, current_date ) >= current_date ")
+    @Query("select (count(p) > 0) from PrivilegeToRole p where p.role.roleId = ?1 and p.privilege.privilegeId = ?2 and p.assActive = 1 and coalesce(p.assDateDebut, current_date) <= current_date and coalesce(p.assDateFin, current_date ) >= current_date ")
     boolean roleHasPrivilege(long roleId, Long privilegeId);
 
     @Query("select (count(p) > 0) from PrivilegeToRole p where p.role.roleId = ?1 and p.privilege.privilegeId = ?2")
@@ -31,7 +31,7 @@ public interface PrivilegeToRoleRepository extends JpaRepository<PrivilegeToRole
     @Query("select p from PrivilegeToRole p where p.role.roleId = ?1 and p.privilege.privilegeId = ?2")
     PrivilegeToRole getPrivilegeForRole(long roleId, Long privilegeId);
 
-    @Query("select p from PrivilegeToRole p where p.role.roleId = ?1 and p.assActive = true and coalesce(p.assDateDebut, current_date ) <= current_date and coalesce(p.assDateFin, current_date ) >= current_date order by p.assId DESC")
+    @Query("select p from PrivilegeToRole p where p.role.roleId = ?1 and p.assActive = 1 and coalesce(p.assDateDebut, current_date ) <= current_date and coalesce(p.assDateFin, current_date ) >= current_date order by p.assId DESC")
     List<PrivilegeToRoleInfo> getActivePrivilgeToRoleAss(long roleId);
 
 

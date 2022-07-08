@@ -34,7 +34,7 @@ public class PrivilegeToUserReqDto
     @DateTimeFormat(pattern ="yyyy-MM-dd")
     @FutureOrPresent(message = "La date de fin ne peut être une date passée")
     private LocalDate assDateFin;
-    private boolean AssActive;
+    private String AssActive;
     @NotNull(message = "strId non fourni")
     private Long assStrId;
 }

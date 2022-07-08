@@ -33,19 +33,19 @@ public interface PrivilegeRepository extends JpaRepository<Privilege,Long> {
     List<PrivilegeInfo> getAllPrivilegess();
 
     //Liste des privileges actifs de l'utilisateur
-    @Query("select p.privilege from PrivilegeToUser p where p.appUser.userId = ?1 and p.assActive = true and coalesce(p.assDateDebut, current_date ) <= current_date and coalesce(p.assDateFin, current_date ) >= current_date")
+    @Query("select p.privilege from PrivilegeToUser p where p.appUser.userId = ?1 and p.assActive = 1 and coalesce(p.assDateDebut, current_date ) <= current_date and coalesce(p.assDateFin, current_date ) >= current_date")
     List<Privilege> getActivePrivilegesForUser(long userId);
 
     //Liste des privileges actifs d'un role
-    @Query("select p.privilege from PrivilegeToRole p where p.role.roleId = ?1 and p.assActive = true")
+    @Query("select p.privilege from PrivilegeToRole p where p.role.roleId = ?1 and p.assActive = 1")
     List<Privilege> getActivePrivilegesForRole(long roleId);
 
     //Liste des priviles directe actifs de l'utilisateur dans une structure
-    @Query("select p.privilege from PrivilegeToUser p where p.appUser.userId = ?1 and p.structure.strId = ?2 and p.assActive = true and coalesce(p.assDateDebut, current_date ) <= current_date and coalesce(p.assDateFin, current_date ) >= current_date")
+    @Query("select p.privilege from PrivilegeToUser p where p.appUser.userId = ?1 and p.structure.strId = ?2 and p.assActive = 1 and coalesce(p.assDateDebut, current_date ) <= current_date and coalesce(p.assDateFin, current_date ) >= current_date")
     List<Privilege> getDirectPrivilegeForUser(Long userId, Long strId);
 
     //Liste des priviles revoque d'un utilisateur dans une structure
-    @Query("select p.privilege from PrivilegeToUser p where p.appUser.userId = ?1 and p.structure.strId = ?2 and p.assActive = false")
+    @Query("select p.privilege from PrivilegeToUser p where p.appUser.userId = ?1 and p.structure.strId = ?2 and p.assActive = 1")
     List<Privilege> getRevokedPrivilegeForUser(Long userId, Long strId);
 
     //Verifier si le code privilege existe deja

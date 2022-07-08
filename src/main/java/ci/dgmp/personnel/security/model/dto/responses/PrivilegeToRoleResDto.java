@@ -26,7 +26,7 @@ public class PrivilegeToRoleResDto {
     private String roleName;
     private Date assDateDebut;
     private Date assDateFin;
-    private boolean assActive;
+    private Long assActive;
     private Long assStrId;
     private String strSigle;
     private String strLibelle;

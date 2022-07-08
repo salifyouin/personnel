@@ -251,7 +251,7 @@
                      <!-- User Profile -->
                      <!-- ============================================================== -->
                      <li class="nav-item dropdown u-pro">
-                         <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="assets/images/users/1.jpg" class=""> <span class="hidden-md-down" th:text="${@scs.getAuthUsername()}"> &nbsp;<i class="fa fa-angle-down"></i></span> </a>
+                         <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="assets/images/users/1.jpg" class=""> <span class="hidden-md-down" th:text="${@scs.getAuthUser().getUserNom() + ' ' + @scs.getAuthUser().getUserPrenom()}"> &nbsp;<i class="fa fa-angle-down"></i></span> </a>
                          <div class="dropdown-menu dropdown-menu-end animated flipInY">
                              <!-- text-->
                              <a th:href="@{/admin/utilisateur/profil}" class="dropdown-item"><i class="ti-user"></i> Mon Profile</a>

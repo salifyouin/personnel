@@ -7,12 +7,12 @@ import java.time.LocalDate;
 public interface RoleToUserInfo {
     Long getAssId();
 
-    boolean isAssActive();
+    Long getAssActive();
 
     LocalDate getAssDateDebut();
 
     LocalDate getAssDateFin();
-
+    UserInfo getAppUser();
     RoleInfo getRole();
 
     StructureInfo getStructure();
@@ -35,5 +35,13 @@ public interface RoleToUserInfo {
         String getStrSigle();
 
         Structure getTutelleDirecte();
+    }
+
+    interface UserInfo
+    {
+        Long getUserId();
+        Long getUserLogin();
+        Long getUserEmail();
+        boolean isUserActive();
     }
 }

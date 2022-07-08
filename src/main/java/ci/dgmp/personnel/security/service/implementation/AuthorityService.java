@@ -51,6 +51,12 @@ public class AuthorityService implements IAuthorityService
     }
 
     @Override
+    public RoleToUser getActiveRoleAssForUser(Long userId)
+    {
+        return rtuRepo.getActiveAssignationForUser(userId);
+    }
+
+    @Override
     //Liste des des assignations (roles) d'un utilisateur dans une structure
     //Combox pour ramener la liste des roles non assignés a un utilisateur dans une structure
     public boolean userHasRole(Long userId, Long roleId, Long strId)

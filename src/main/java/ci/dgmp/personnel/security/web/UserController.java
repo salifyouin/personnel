@@ -11,7 +11,9 @@ import ci.dgmp.personnel.security.model.projection.*;
 import ci.dgmp.personnel.security.service.interfac.*;
 import ci.dgmp.personnel.service.exception.AppException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +37,8 @@ public class UserController {
     private final PrivilegeToUserIservice ptuService;
     private final PrivilegeToUserRepository ptuRepo;
     private final PrivilegeIservice privilegeService;
+    private final ISecurityContextService scs;
+
     @GetMapping("/index")
     public String index(Model model) {
         List<AppUserInfo> users=userService.getAllUsers();
@@ -123,17 +127,30 @@ public class UserController {
     }
 
     //Affiche profil
-    @GetMapping("/profil")
-    public String indexProfile(){
+    @GetMapping("/profil") @PreAuthorize("isAuthenticated()")
+    public String indexProfile(Model model){
+        //Infos de l'utilisateur connecte
+        AppUser user = scs.getAuthUser();
+        user.setUserPassword("");
+        model.addAttribute("user",user);
+        model.addAttribute("userRoleAss",rtuRepo.getActiveAssignationForUser(user.getUserId()));
         return "admin/user/profil";
     }
 
-    //Affiche profil
-    @GetMapping("/habilitations")
-    public String indexHabilitation(Model model, @RequestParam(name = "userId") Long userId){
-        List<RoleToUserInfo> userRoles=rtuRepo.getNoneAssignationForUser(userId);
-        model.addAttribute("userRoles",userRoles);
-        return "/";
+
+    @GetMapping("/changeRole")
+    public String changeRole(@Param("userId") Long userId, @Param("roleId") Long roleId, @Param("strId")Long strId)
+    {
+        rtsService.changeRoleForUser(userId, roleId, strId);
+        return "redirect:/";
+    }
+
+    //Modifier le profil
+    @PostMapping(path = "/updateProfil")
+    public String updateProfile(AppUser user)
+    {
+        userService.updateUserProfile(user);
+        return "redirect:/admin/utilisateur/profil";
     }
 
 

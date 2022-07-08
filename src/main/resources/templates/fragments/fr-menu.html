@@ -35,7 +35,7 @@
             </li>
           </ul>
         </li>
-        <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-palette"></i><span class="hide-menu">Carrières <span class="badge rounded-pill bg-primary text-white ms-auto">25</span></span></a>
+        <li th:if="${@scs.hasAuthority('DEV')}"> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-palette"></i><span class="hide-menu">Carrières <span class="badge rounded-pill bg-primary text-white ms-auto">25</span></span></a>
           <ul aria-expanded="false" class="collapse">
             <li><a href="ui-cards.html">Nominations</a></li>
             <li><a href="ui-cards.html">Promotions</a></li>

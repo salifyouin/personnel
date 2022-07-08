@@ -27,7 +27,7 @@ public interface RoleRepository extends JpaRepository<Role, Long> {
     @Query("select r from Role r where r.roleActif = true order by r.roleName")
     List<RoleInfo> getAllRoles();
 
-    @Query("select r.role from RoleToUser r where r.appUser.userId = ?1 and coalesce(r.assDateDebut, current_date ) <= current_date and coalesce(r.assDateFin, current_date ) >= current_date and r.assActive = true")
+    @Query("select r.role from RoleToUser r where r.appUser.userId = ?1 and coalesce(r.assDateDebut, current_date ) <= current_date and coalesce(r.assDateFin, current_date ) >= current_date and r.assActive = 1")
     Role getActiveRoleForUser(Long userId);
     Role findByRoleCode(String user);
 }

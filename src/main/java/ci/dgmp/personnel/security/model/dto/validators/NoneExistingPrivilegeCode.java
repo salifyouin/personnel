@@ -17,7 +17,7 @@ import java.lang.annotation.*;
 public @interface NoneExistingPrivilegeCode
 {
     String message() default "PrivilegeCode existe deja";
-    Class<?>[] group() default {};
+    Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 
     @Component @RequiredArgsConstructor

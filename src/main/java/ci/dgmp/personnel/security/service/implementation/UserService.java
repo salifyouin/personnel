@@ -6,6 +6,7 @@ import ci.dgmp.personnel.security.model.dto.request.UserReqDto;
 import ci.dgmp.personnel.security.model.entities.AppUser;
 import ci.dgmp.personnel.security.model.projection.AppUserInfo;
 import ci.dgmp.personnel.security.service.interfac.UserIservice;
+import ci.dgmp.personnel.service.exception.AppException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ public class UserService implements UserIservice {
 private final UserRepository userRepo;
 private final UserMapper userMapper;
 private final PasswordEncoder passwordEncoder;
+private final SecurityContextService scs;
     @Override
     public void saveUser(UserReqDto userReqDto) {
         AppUser user = userMapper.mapToUser(userReqDto);
@@ -36,5 +38,19 @@ private final PasswordEncoder passwordEncoder;
     @Override
     public void deleteAgent(Long userId) {
         userRepo.deleteById(userId);
+    }
+
+    @Override
+    public void updateUserProfile(AppUser user)
+    {
+        AppUser loadedUser = userRepo.findById(user.getUserId()).orElseThrow(()->new AppException("Utilisateur introuvable"));
+        if(!passwordEncoder.matches(user.getUserPassword(), loadedUser.getUserPassword())) throw new AppException("Mot de passe incorrect");
+        loadedUser.setUserNom(user.getUserNom());
+        loadedUser.setUserPrenom(user.getUserPrenom());
+        loadedUser.setUserLogin(user.getUserLogin());
+        loadedUser.setUserTelephone(user.getUserTelephone());
+        loadedUser.setUserEmail(user.getUserEmail());
+        userRepo.save(loadedUser);
+        scs.refreshSecurityContext();
     }
 }

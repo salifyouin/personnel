@@ -26,7 +26,7 @@ public class PrivilegeToRoleService implements PrivilegeToRoleIservice {
     @Override
     public void addPrivillegeToRole(PrivilegeToRoleReqDto privilegeToRoleReqDto) {
         PrivilegeToRole ptr = ptrMapper.mapToPrivilegeToRole(privilegeToRoleReqDto);
-        ptr.setAssActive(true);
+        ptr.setAssActive(1L);
         ptr.setAssDateDebut(LocalDate.now());
         ptr.setAssDateFin(LocalDate.now().plusYears(1));
         ptrRepo.save(ptr);
@@ -44,7 +44,7 @@ public class PrivilegeToRoleService implements PrivilegeToRoleIservice {
 
     @Override
     public void desablePrivilege(PrivilegeToRole ptr) {
-        ptr.setAssActive(false);
+        ptr.setAssActive(0L);
         ptrRepo.save(ptr);
     }
 
@@ -59,7 +59,7 @@ public class PrivilegeToRoleService implements PrivilegeToRoleIservice {
         if (ptrRepo.existsPrivilegeForRole(roleId,prvId)){
             ptr =ptrRepo.getPrivilegeForRole(roleId,prvId);
         }
-        ptr.setAssActive(false);
+        ptr.setAssActive(0L);
         ptrRepo.save(ptr);
     }
 }

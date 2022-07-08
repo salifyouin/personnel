@@ -19,7 +19,7 @@ public class AssignationReqDto
     private Long roleId;
     private Date assDateDebut;
     private Date assDateFin;
-    private boolean AssActive;
+    private String AssActive;
     private Long assStrId;
     private String type;
 }
