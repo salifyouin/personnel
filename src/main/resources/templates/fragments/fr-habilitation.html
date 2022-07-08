@@ -1,0 +1,56 @@
+<div data-th-fragment="habilitation" class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Mes roles</h4>
+                <!-- sample modal content -->
+                <div class="modal bs-example-modal-lg" tabindex="-1" aria-labelledby="myLargeModalLabel" style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog modal-xl">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="myLargeModalLabel">Mes roles</h4>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="table-responsive">
+                                    <table  id="mainTable" class="table editable-table table-bordered table-striped m-b-0 color-table info-table">
+                                        <thead>
+                                        <tr>
+                                            <th>Roles</th>
+                                            <th>Date debut</th>
+                                            <th>Date de fin</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="role:${userRoles}">
+                                            <td class="col-md-7" th:text="${role.getRoleName()}"></td>
+                                            <td class="col-md-2" th:text="${#temporals.format(role.getAssDateDebut())}"></td>
+                                            <td class="col-md-2" th:text="${#temporals.format(role.getAssDateFin())}"></td>
+                                            <td class="col-md-1">
+                                                <div class="btn-group">
+                                                    <button type="button"
+                                                            class="btn btn-outline-info waves-effect waves-light">
+                                                        <i class="ti-eye"></i>
+                                                    </button>
+
+                                                    <button type="button"
+                                                            class="btn btn-outline-success waves-effect waves-light">
+                                                        <i class=" ti-check"></i>
+                                                    </button>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger waves-effect text-start text-white" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+                <!-- /.modal -->
+            </div>
+        </div>
+    </div>

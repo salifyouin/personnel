@@ -1,0 +1,37 @@
+<div data-th-fragment="addTypePere" class="modal bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="myLargeModalLabel">Ajout d'un nouveau type</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+        </div>
+        <div class="modal-body">
+          <form th:action="@{/parametres/types/save}" method="POST" th:object="${type}" class="floating-labels m-t-40">
+            <div class="form-group m-b-30 m-t-40" >
+              <div class="form-group m-b-40">
+                <input th:field="*{typCode}" type="text" class="form-control" id="code">
+                <span class="bar"></span>
+                <label for="code">Code</label>
+              </div>
+              <div class="form-group m-b-40">
+                <input th:field="*{typLibelle}" type="text" class="form-control" id="nom">
+                <span class="bar"></span>
+                <label for="nom">Abregé</label>
+              </div>
+              <div class="form-group m-b-40">
+                <input th:field="*{typLibelle}" type="text" class="form-control" id="prenom">
+                <span class="bar"></span>
+                <label for="prenom">Libelle</label>
+              </div>
+              <button  type="submit" class="btn btn-rounded btn-outline-info fa-pull-right">Enregistrer zfezfs</button>
+              <a data-bs-dismiss="modal" type="button" class="btn btn-rounded btn-outline-dark fa-pull-left">Fermer</a>
+            </div>
+
+          </form>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+
