@@ -4,7 +4,7 @@
     <!-- Sidebar navigation-->
     <nav class="sidebar-nav">
       <ul id="sidebarnav">
-        <li class="appUser-pro"> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><img th:href="@{assets/images/users/1.jpg}" alt="appUser-img" class="img-circle"><span class="hide-menu">Mark Jeckson</span></a>
+        <li class="appUser-pro"> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><span class="hide-menu">Mark Jeckson</span></a>
           <ul aria-expanded="false" class="collapse">
             <li><a href="javascript:void(0)"><i class="ti-appUser"></i> My Profile</a></li>
             <li><a href="javascript:void(0)"><i class="ti-wallet"></i> My Balance</a></li>
@@ -15,13 +15,15 @@
         </li>
 
 
-        <li class="nav-small-cap">--- PERSONAL</li>
-        <li th:classappend="${module == '/Liste' ? 'active' : ''}"> <a class="has-arrow waves-effect waves-dark"  aria-expanded="false"><i class="icon-speedometer"></i><span class="hide-menu">Agents <span class="badge rounded-pill bg-cyan ms-auto">4</span></span></a>
+        <li th:if="${@scs.hasAuthority('RESP_RH','DEV')}" class="nav-small-cap">--- PERSONAL</li>
+        <li  th:classappend="${module == '/Liste' ? 'active' : ''}"> <a class="has-arrow waves-effect waves-dark"  aria-expanded="false"><i class="icon-speedometer"></i><span class="hide-menu">Agents <span class="badge rounded-pill bg-cyan ms-auto">4</span></span></a>
           <ul aria-expanded="false" class="collapse">
-            <li><a th:href="@{/agent/addAgent}">Ajouter un agent </a></li>
-            <li><a th:href="@{/agent/index}">Liste des agents</a></li>
+            <li><a th:if="${@scs.hasAuthority('AGT_SAISIE')}" th:href="@{/agent/addAgent}">Ajouter un agent </a></li>
+<!--            <li th:if="${@scs.hasAuthority('AGT_CONSULTER_LISTE')}"><a th:href="@{/agent/index}">Liste des agents</a></li>-->
+            <li th:if="${@scs.hasAuthority('AGT_CONSULTER_LISTE')}"><a th:href="@{/agent/index2}">Liste des agents</a></li>
           </ul>
         </li>
+        <li th:if="${@scs.hasAuthority('RESP_RH','DEV','AGENT')}" class="nav-small-cap">--- PERSONAL</li>
         <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-layout-grid2"></i><span class="hide-menu">Demandes</span></a>
           <ul aria-expanded="false" class="collapse">
             <li><a href="app-calendar.html">Demandes d'affectations</a></li>
@@ -35,32 +37,35 @@
             </li>
           </ul>
         </li>
-        <li th:if="${@scs.hasAuthority('DEV')}"> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-palette"></i><span class="hide-menu">Carrières <span class="badge rounded-pill bg-primary text-white ms-auto">25</span></span></a>
+
+        <li th:if="${@scs.hasAuthority('RESP_RH','DEV')}" class="nav-small-cap">--- FORMS, TABLE &amp; WIDGETS</li>
+        <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-palette"></i><span class="hide-menu">Carrières</span></a>
           <ul aria-expanded="false" class="collapse">
             <li><a href="ui-cards.html">Nominations</a></li>
             <li><a href="ui-cards.html">Promotions</a></li>
             <li><a href="ui-cards.html">Mobilites professionnelles</a></li>
           </ul>
         </li>
-        <li class="nav-small-cap">--- FORMS, TABLE &amp; WIDGETS</li>
+        <li th:if="${@scs.hasAuthority('RESP_RH','DEV')}" class="nav-small-cap">--- FORMS, TABLE &amp; WIDGETS</li>
         <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-layout-media-right-alt"></i><span class="hide-menu">Mouvements</span></a>
           <ul aria-expanded="false" class="collapse">
             <li><a href="form-basic.html">Basic Forms</a></li>
             <li><a href="form-tinymce.html">Tinymce Editor</a></li>
           </ul>
         </li>
-        <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-settings"></i><span class="hide-menu">Données parametre</span></a>
+        <li th:if="${@scs.hasAuthority('ADMIN','DEV')}"> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-settings"></i><span class="hide-menu">Administration</span></a>
           <ul aria-expanded="false" class="collapse">
             <li><a th:href="@{/parametres/structure/index}">Structures</a></li>
             <li><a th:href="@{/parametres/fonction/index}">Fonctions</a></li>
-            <li><a th:href="@{/parametres/types/index}">Types</a></li>
+
           </ul>
         </li>
-        <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-settings"></i><span class="hide-menu">Administration</span></a>
+        <li th:if="${@scs.hasAuthority('DEV')}"> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-settings"></i><span class="hide-menu">Données parametre</span></a>
           <ul aria-expanded="false" class="collapse">
             <li><a th:href="@{/admin/utilisateur/index}">Utilisateurs</a></li>
             <li><a th:href="@{/admin/role/index}">Roles</a></li>
             <li><a th:href="@{/admin/privillege/index}">Privilèges</a></li>
+            <li><a th:href="@{/parametres/types/index}">Types</a></li>
           </ul>
         </li>
       </ul>

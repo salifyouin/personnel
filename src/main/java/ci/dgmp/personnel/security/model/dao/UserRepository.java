@@ -16,5 +16,20 @@ public interface UserRepository extends JpaRepository<AppUser, Long> {
     //avec Fin Instance
     Optional <AppUser> findByUserLogin(String userLogin);
 
+    boolean existsByUserLogin(String userLogin);
+
+    boolean existsByUserEmail(String userEmail);
+
+    boolean existsByUserTelephone(String userTelephone);
+
+    @Query("select a.userPassword from AppUser a where a.userLogin = ?1")
+    String getUserPassword(String userLogin);
+
+
+
+
+
+
+
 
 }

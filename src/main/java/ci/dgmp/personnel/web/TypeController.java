@@ -6,6 +6,7 @@ import ci.dgmp.personnel.service.exception.AppException;
 import ci.dgmp.personnel.service.interfac.TypeIservice;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,10 +19,12 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/parametres/types")
+@PreAuthorize("isAuthenticated()")
 public class TypeController {
     private final TypeIservice typeService;
     private final TypeRepository typeRepository;
 
+    @PreAuthorize("hasAnyAuthority('DEV','ADMIN')")
     @GetMapping("/index")
     public String index(Model model,
                         @RequestParam(defaultValue = "0") int page,
@@ -33,6 +36,7 @@ public class TypeController {
         return "pages/type/indexTypePere";
     }
 
+    @PreAuthorize("hasAnyAuthority('DEV','ADMIN')")
     @GetMapping("/detail")
     public String indexDetail(Model model,@RequestParam Long idPere
 //                        @RequestParam(defaultValue = "0") int page,
@@ -49,6 +53,7 @@ public class TypeController {
         return "pages/type/indexTypeFils";
     }
 
+    @PreAuthorize("hasAnyAuthority('DEV','ADMIN')")
     @PostMapping(path = "/save")
     public String saveType(Type type){
        typeRepository.save(type);
@@ -56,6 +61,7 @@ public class TypeController {
         return "redirect:/parametres/types/index";
     }
 
+    @PreAuthorize("hasAnyAuthority('DEV','ADMIN')")
     @PostMapping(path = "/saveDetail")
     public String saveDetailType(Type t){
         typeRepository.save(t);
@@ -64,6 +70,7 @@ public class TypeController {
     }
 
 
+    @PreAuthorize("hasAnyAuthority('DEV','ADMIN')")
     @GetMapping("/fonction/index")
     private String indexFonction(){
         return "pages/fonction/indexFonction";

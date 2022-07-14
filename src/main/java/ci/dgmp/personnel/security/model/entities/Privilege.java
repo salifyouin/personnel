@@ -25,9 +25,9 @@ public class Privilege {
     private Long privilegeId;
     @NotBlank(message = "Le code privilège est obligatoir")
     @NotNull(message = "Le code privilège est obligatoire")
-    @NoneExistingPrivilegeCode
+    //@NoneExistingPrivilegeCode
     private String privilegeCode;
-    @NoneExistingPrivilegeName
+    //@NoneExistingPrivilegeName
     @NotBlank(message = "Le privilège est obligatoir")
     @NotNull(message = "Le privilège est obligatoire")
     private String privilegeName;

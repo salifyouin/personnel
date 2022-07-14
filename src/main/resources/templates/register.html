@@ -49,32 +49,45 @@
                         <h3 class="text-center m-b-20">Création de compte</h3>
                         <div class="form-group">
                             <div class="col-xs-12">
-                                <input th:field="*{userNom}" class="form-control" type="text" required="" placeholder="Nom">
+                                <input th:field="*{userNom}" class="form-control" type="text" required="" placeholder="Nom"><br/>
+                                <small th:if="${userNom}" th:text="${userNom}" class="text-danger"></small>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-xs-12">
-                                <input th:field="*{userPrenom}" class="form-control" type="text" required="" placeholder="prenom">
+                                <input th:field="*{userPrenom}" class="form-control" type="text" required="" placeholder="prenom"><br/>
+                                <small th:if="${userPrenom}" th:text="${userPrenom}" class="text-danger"></small>
                             </div>
                         </div>
                         <div class="form-group ">
                             <div class="col-xs-12">
-                                <input th:field="*{userEmail}" class="form-control" type="email" required="" placeholder="Email">
+                                <input th:field="*{userEmail}" class="form-control" type="email" required="" placeholder="Email"><br/>
+                                <small th:if="${userEmail}" th:text="${userEmail}" class="text-danger"></small>
                             </div>
                         </div>
                         <div class="form-group ">
                             <div class="col-xs-12">
-                                <input th:field="*{userLogin}" class="form-control" type="text" required="" placeholder="login">
+                                <input th:field="*{userTelephone}" class="form-control" type="text" required="" placeholder="Telephone"><br/>
+                                <small th:if="${userTelephone}" th:text="${userTelephone}" class="text-danger"></small>
                             </div>
                         </div>
                         <div class="form-group ">
                             <div class="col-xs-12">
-                                <input th:field="*{userPassword}" class="form-control" type="password" required="" placeholder="Password">
+                                <input th:field="*{userLogin}" class="form-control" type="text" required="" placeholder="login"><br/>
+                                <small th:if="${userLogin}" th:text="${userLogin}" class="text-danger"></small>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <div class="col-xs-12">
+                                <input th:field="*{userPassword}" class="form-control" type="password" required="" placeholder="Password"><br>
+                                <small th:if="${userPassword}" th:text="${userPassword}" class="text-danger"></small>
+                                <small th:if="${userConfirmPassword}" th:text="${userConfirmPassword}" class="text-danger"></small>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-xs-12">
-                                <input class="form-control" type="password" required="" placeholder="Confirm Password">
+                                <input th:field="*{userConfirmPassword}" class="form-control" type="password" required="" placeholder="Confirm Password"><br/>
+                                <small th:if="${userConfirmPassword}" th:text="${userConfirmPassword}" class="text-danger"></small>
                             </div>
                         </div>
                         <div class="form-group row">

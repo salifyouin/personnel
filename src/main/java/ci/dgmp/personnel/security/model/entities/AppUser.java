@@ -30,4 +30,8 @@ public class AppUser {
     private LocalDateTime updatedAt;
     @ManyToOne @JoinColumn(name = "agtId")
     private Agent agent;
+
+    public AppUser(Long userId) {
+        this.userId = userId;
+    }
 }

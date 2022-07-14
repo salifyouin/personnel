@@ -7,11 +7,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 @Controller
 @RequiredArgsConstructor
@@ -30,7 +32,14 @@ public class SecurityController {
     }
 
     @PostMapping(path = "/save")
-    public String saveUser(UserReqDto user){
+    public String saveUser(@Valid UserReqDto user, BindingResult br, Model model)
+    {
+        if(br.hasErrors())
+        {
+            br.getGlobalErrors().forEach(err->model.addAttribute(err.getDefaultMessage().split(":")[0], err.getDefaultMessage().split(":")[1]));
+            br.getFieldErrors().forEach(err-> model.addAttribute(err.getField(), err.getDefaultMessage()));
+            return register(model);
+        }
         userService.saveUser(user);
         return "redirect:/login";
     }

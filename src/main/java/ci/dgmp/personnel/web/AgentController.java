@@ -5,6 +5,8 @@ import ci.dgmp.personnel.model.dao.StructureRepository;
 import ci.dgmp.personnel.model.dao.TypeRepository;
 import ci.dgmp.personnel.model.dto.AgentReqDto;
 import ci.dgmp.personnel.model.dto.AgentResDto;
+import ci.dgmp.personnel.security.service.implementation.SecurityContextService;
+import ci.dgmp.personnel.security.service.interfac.IAuthorityService;
 import ci.dgmp.personnel.service.interfac.AgentIservice;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,19 +22,24 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
 @Slf4j
-@PreAuthorize("hasAnyAuthority('DEV','ADMIN')")
+
 @RequestMapping("/agent")
-//@PreAuthorize("isAuthenticated()")//Acces a la page necessite une authentification
+@PreAuthorize("isAuthenticated()")//Acces a la page necessite une authentification
 
 public class AgentController {
     private final AgentIservice agentservice;
     private final AgentRepository agentRepository;
     private final TypeRepository typeRepository;
     private final StructureRepository structureRepository;
+    private final SecurityContextService scs;
+    private final IAuthorityService authService;
+
+    @PreAuthorize("hasAnyAuthority('RESPONSABLE RH','DEV')")
     @GetMapping("/index")
     public String index(Model model, @RequestParam(name = "critere",defaultValue = "") String critere,
                         @RequestParam(defaultValue = "0") int page,
@@ -45,6 +52,22 @@ public class AgentController {
         return "pages/agent/index";
     }
 
+    @PreAuthorize("hasAnyAuthority('RESPONSABLE RH','DEV')")
+    @GetMapping("/index2")
+    public String index2(Model model, @RequestParam(name = "critere",defaultValue = "") String critere){
+        //List<AgentResDto> listAgents=critere.equals("") ? agentservice.getAllPagesAgents(page,size):agentservice.getPageAgentsSearch(critere, page, size)
+        Long strId = authService.getActiveRoleAssForUser(scs.getAuthUser().getUserId()).getStructure().getStrId();
+        List<AgentResDto> listAgents=agentservice.getAllAgentsByStructure(strId);
+        model.addAttribute("listAgents", listAgents);
+        //model.addAttribute("currentPage", page);
+        model.addAttribute("critere", critere);
+        //model.addAttribute("pages", new int[listAgents.getTotalPages()]);
+        return "pages/agent/index2";
+    }
+
+
+
+    @PreAuthorize("hasAnyAuthority('RESPONSABLE RH','DEV')")
     @GetMapping("/addAgent")
     public String form(Model model){
         model.addAttribute("agent", new AgentReqDto());
@@ -57,6 +80,7 @@ public class AgentController {
         return "pages/agent/addAgent";
     }
 
+    @PreAuthorize("hasAnyAuthority('RESPONSABLE RH','DEV')")
     @PostMapping(path = "/saveAgent")
     public String saveAgent(@Valid AgentReqDto agent, BindingResult result, Model model, RedirectAttributes ra){
         if(result.hasErrors()) {

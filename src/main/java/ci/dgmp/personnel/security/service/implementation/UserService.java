@@ -2,6 +2,7 @@ package ci.dgmp.personnel.security.service.implementation;
 
 import ci.dgmp.personnel.security.model.dao.UserRepository;
 import ci.dgmp.personnel.security.model.dto.mapper.UserMapper;
+import ci.dgmp.personnel.security.model.dto.request.ChangePasswordDto;
 import ci.dgmp.personnel.security.model.dto.request.UserReqDto;
 import ci.dgmp.personnel.security.model.entities.AppUser;
 import ci.dgmp.personnel.security.model.projection.AppUserInfo;
@@ -10,7 +11,10 @@ import ci.dgmp.personnel.service.exception.AppException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 
+import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -24,8 +28,7 @@ private final SecurityContextService scs;
     @Override
     public void saveUser(UserReqDto userReqDto) {
         AppUser user = userMapper.mapToUser(userReqDto);
-        user.setUserActive(true);
-        user.setCreatedAt(LocalDateTime.now());
+         user.setUserActive(true);
         user.setUserPassword(passwordEncoder.encode(user.getUserPassword()));
         userRepo.save(user);
     }
@@ -50,7 +53,23 @@ private final SecurityContextService scs;
         loadedUser.setUserLogin(user.getUserLogin());
         loadedUser.setUserTelephone(user.getUserTelephone());
         loadedUser.setUserEmail(user.getUserEmail());
+        user.setUpdatedAt(LocalDateTime.now());
         userRepo.save(loadedUser);
         scs.refreshSecurityContext();
+    }
+
+    @Override @Transactional
+    public void changePassWord(ChangePasswordDto dto)
+    {
+        //Recuperer l'utilisateur connecte
+        AppUser authUser = userRepo.findByUserLogin(scs.getAuthUsername()).get() ;
+        authUser.setUserPassword(passwordEncoder.encode(dto.getUserPassword()));
+        userRepo.save(authUser);
+    }
+
+    @Override @Transactional
+    public void changePassWord(String oldPassword, String userPassword, String userConfirmPassword) {
+        ChangePasswordDto dto = new ChangePasswordDto(oldPassword, userPassword, userConfirmPassword);
+        this.changePassWord(dto);
     }
 }

@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface AgentRepository extends JpaRepository<Agent, Long> {
+    @Query("select a from Agent a where a.structure.strId = ?1")
+    List<Agent> findByStrId(Long strId);
 
     @Query("select a from Agent a where a.agtId = :aLong")
     @Override
@@ -37,5 +39,30 @@ public interface AgentRepository extends JpaRepository<Agent, Long> {
 
     @Query("select  upper(concat(coalesce(a.agtNom,''), coalesce(a.agtPrenom,''), coalesce(a.structure.strLibelle,''))) from Agent a left join a.structure s where upper(concat(coalesce(a.agtNom,''), coalesce(a.agtPrenom,''), coalesce(a.structure.strLibelle,'') )) like upper(concat('%', :critere, '%'))")
     List<String> selectConcat(@Param("critere") String critere);
+
+    @Query("select a from Agent a where a.structure.strId = ?1 order by a.agtId DESC")
+    List<Agent> getAgents(Long strId);
+
+    //Valider le username par programmation
+    Agent findByAgtUserName(String agtUserName);
+
+    //Valider le username avec anotation personalisee
+    boolean existsByAgtUserName(String agtUserName);
+
+    boolean existsByAgtAdresse(String agtAdresse);
+
+    @Query("select (count(a) > 0) from Agent a where upper(a.agtMatricule) = upper(?1)")
+    boolean existsByAgtMatricule(String agtMatricule);
+
+
+
+
+
+
+
+
+
+
+
 
 }

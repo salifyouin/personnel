@@ -35,25 +35,47 @@
         <div class="col-lg-4 col-xlg-3 col-md-5">
             <div class="card">
                 <div class="card-body">
-                    <div class="m-t-30" style="text-align: center;"> <img src="/assets/images/users/5.jpg" class="img-circle" width="150" />
+                    <div class="m-t-30" style="text-align: center;">
+<!--                        <input type="file" class="dropify img-circle" data-height="150" data-default-file="/assets/images/users/5.jpg" />-->
+
+                        <img th:src="@{'/admin/utilisateur/photo/' + ${user.userId}}" class="img-circle" width="150" height="150">
+
+                         <form th:action="@{/admin/utilisateur/saveImage}" method="post" th:object="${image}" enctype="multipart/form-data" class="form-horizontal form-material">
+                             <div class="input-group mb-3">
+                                 <input th:field="*{file}" type="file" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
+                                 <div class="input-group-append">
+                                     <button class="btn btn-info text-white" type="submit">Modifier</button>
+                                 </div>
+                             </div>
+                         </form>
                         <h4 class="card-title m-t-10" th:text="${user.userNom} + ' ' + ${user.userPrenom}"></h4>
                         <h6 th:if="${userRoleAss}" class="card-subtitle" th:text="${userRoleAss.role.roleName}"></h6>
                         <div class="row text-center justify-content-md-center">
-                            <div class="col-6"><a href="javascript:void(0)" class="link"><i class="icon-people"></i> <font class="font-medium">254</font></a></div>
-                            <div class="col-6"><a href="javascript:void(0)" class="link"><i class="icon-picture"></i> <font class="font-medium">54</font></a></div>
+
+
+
+
+
+<!--                            <div class="col-6"><a href="javascript:void(0)" class="link"><i class="icon-people"></i> <font class="font-medium">254</font></a></div>-->
+<!--                            <div class="col-6"><a href="javascript:void(0)" class="link"><i class="icon-picture"></i> <font class="font-medium">54</font></a></div>-->
                         </div>
                     </div>
                 </div>
                 <div>
                     <hr> </div>
-                <div class="card-body"> <small class="text-muted">Email address </small>
-                    <h6>hannagover@gmail.com</h6> <small class="text-muted p-t-30 db">Phone</small>
-                    <h6>+91 654 784 547</h6> <small class="text-muted p-t-30 db">Address</small>
-                    <h6>71 Pilgrim Avenue Chevy Chase, MD 20815</h6>
-                    <h6>hannagover@gmail.com</h6> <small class="text-muted p-t-30 db">Phone</small>
-                    <h6>+91 654 784 547</h6> <small class="text-muted p-t-30 db">Address</small>
-                    <h6>71 Pilgrim Avenue Chevy Chase, MD 20815</h6>
-                    <h6>hannagover@gmail.com</h6> <small class="text-muted p-t-30 db">Phone</small>
+                <div class="card-body">
+
+                    <small class="text-muted">Nom</small>
+                    <h6 th:text="${user.userNom}"></h6>
+
+                    <small class="text-muted">Prenom</small>
+                    <h6 th:text="${user.userPrenom}"></h6>
+
+                    <small class="text-muted">E-mail</small>
+                    <h6 th:text="${user.userEmail}"></h6>
+
+                    <small class="text-muted p-t-30 db">Telephone</small>
+                    <h6 th:text="${user.userTelephone}"></h6>
 
                     <br/>
                 </div>
@@ -77,21 +99,21 @@
                     <div class="tab-pane active" id="profile"  role="tabpanel">
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-3 col-xs-6 b-r"> <strong>Full Name</strong>
+                                <div class="col-md-3 col-xs-6 b-r"> <strong>Nom et Prenom(s)</strong>
                                     <br>
-                                    <p class="text-muted">Johnathan Deo</p>
+                                    <p class="text-muted" th:text="${user.userNom}+' '+${user.userPrenom}"></p>
                                 </div>
-                                <div class="col-md-3 col-xs-6 b-r"> <strong>Mobile</strong>
+                                <div class="col-md-3 col-xs-6 b-r"> <strong>Telephone</strong>
                                     <br>
-                                    <p class="text-muted">(123) 456 7890</p>
+                                    <p class="text-muted" th:text="${user.userTelephone}"></p>
                                 </div>
                                 <div class="col-md-3 col-xs-6 b-r"> <strong>Email</strong>
                                     <br>
-                                    <p class="text-muted">johnathan@admin.com</p>
+                                    <p class="text-muted" th:text="${user.userEmail}"></p>
                                 </div>
-                                <div class="col-md-3 col-xs-6"> <strong>Location</strong>
+                                <div class="col-md-3 col-xs-6"> <strong>Habiltation actif</strong>
                                     <br>
-                                    <p class="text-muted">London</p>
+                                    <p class="text-muted" th:text="${userRoleAss.role.roleName}"></p>
                                 </div>
                             </div>
                             <hr>
@@ -205,7 +227,7 @@
                     <div class="tab-pane" id="settings" role="tabpanel">
                         <div class="card-body">
                             <form th:action="@{/admin/utilisateur/updateProfil}" method="post" th:object="${user}" class="form-horizontal form-material">
-                                <input th:field="*{userId}" type="text"  class="form-control form-control-line">
+                                <input th:field="*{userId}" type="hidden"  class="form-control form-control-line">
                                 <div class="form-group">
                                     <label class="col-md-12">Nom</label>
                                     <div class="col-md-12">

@@ -3,22 +3,29 @@ package ci.dgmp.personnel.security.web;
 import ci.dgmp.personnel.model.dao.StructureRepository;
 import ci.dgmp.personnel.model.projection.StructureInfo;
 import ci.dgmp.personnel.security.model.dao.*;
+import ci.dgmp.personnel.security.model.dto.request.ChangePasswordDto;
 import ci.dgmp.personnel.security.model.dto.request.PrivilegeToUserReqDto;
 import ci.dgmp.personnel.security.model.dto.request.RoleToUserReqDto;
 import ci.dgmp.personnel.security.model.dto.request.UserReqDto;
 import ci.dgmp.personnel.security.model.entities.*;
 import ci.dgmp.personnel.security.model.projection.*;
+import ci.dgmp.personnel.security.service.constant.ImgConstants;
 import ci.dgmp.personnel.security.service.interfac.*;
 import ci.dgmp.personnel.service.exception.AppException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +45,10 @@ public class UserController {
     private final PrivilegeToUserRepository ptuRepo;
     private final PrivilegeIservice privilegeService;
     private final ISecurityContextService scs;
+    private final ImageIservice imageService;
+    private final UserImageRepository imgRepo;
 
+    @PreAuthorize("hasAnyAuthority('DEV','ADMIN')")
     @GetMapping("/index")
     public String index(Model model) {
         List<AppUserInfo> users=userService.getAllUsers();
@@ -46,6 +56,7 @@ public class UserController {
         return "admin/user/index";
     }
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/rolePrivilege")
     public String rolePrivilegeIndex(Model model, @RequestParam(name = "userId") Long userId) {
         //Recuperation de l'id de l'utilisateur depuis la table AppUser
@@ -92,25 +103,32 @@ public class UserController {
 
 
     @GetMapping("/addUser")
-    private String addForm(Model model){
+    public String addForm(Model model){
         model.addAttribute("user",new UserReqDto());
         return "admin/user/addUser";
     }
 
     @PostMapping(path = "/save")
-    private String saveUser(UserReqDto user){
+    public String saveUser(@Valid UserReqDto user, BindingResult br, Model model)
+    {
+        if(br.hasErrors())
+        {
+            br.getGlobalErrors().forEach(err->model.addAttribute(err.getDefaultMessage().split(":")[0], err.getDefaultMessage().split(":")[1]));
+            br.getFieldErrors().forEach(err-> model.addAttribute(err.getField(), err.getDefaultMessage()));
+            return addForm(model);
+        }
         userService.saveUser(user);
         return"redirect:/admin/utilisateur/index";
     }
 
-
+    @PreAuthorize("isAuthenticated()")
     @PostMapping(path = "/addRoleToUser")
     public String addRoleToUser(RoleToUserReqDto rtu, RedirectAttributes ra){
         rtsService.addRoleToUser(rtu);
         ra.addAttribute("userId", rtu.getUserId());
         return "redirect:/admin/utilisateur/rolePrivilege";
     }
-
+    @PreAuthorize("isAuthenticated()")
     @PostMapping(path = "/addPrivilegeToUser")
     public String addPrivilegeToUser(PrivilegeToUserReqDto ptu, RedirectAttributes ra){
         ptuService.addPrivilegeToUser(ptu);
@@ -118,6 +136,7 @@ public class UserController {
         return "redirect:/admin/utilisateur/rolePrivilege";
     }
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/revokePrivilegeToUser")
     public String revokePrivilegeToUser(@Param("userId") Long userId, @Param("prvId") Long prvId, @Param("strId")Long strId, RedirectAttributes ra)
     {
@@ -133,11 +152,13 @@ public class UserController {
         AppUser user = scs.getAuthUser();
         user.setUserPassword("");
         model.addAttribute("user",user);
+        model.addAttribute("image",new UserImage());
         model.addAttribute("userRoleAss",rtuRepo.getActiveAssignationForUser(user.getUserId()));
         return "admin/user/profil";
     }
 
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/changeRole")
     public String changeRole(@Param("userId") Long userId, @Param("roleId") Long roleId, @Param("strId")Long strId)
     {
@@ -146,6 +167,7 @@ public class UserController {
     }
 
     //Modifier le profil
+    @PreAuthorize("isAuthenticated()")
     @PostMapping(path = "/updateProfil")
     public String updateProfile(AppUser user)
     {
@@ -153,6 +175,44 @@ public class UserController {
         return "redirect:/admin/utilisateur/profil";
     }
 
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/changePassword")
+    public String changePassword(Model model){
+        model.addAttribute("changePasswordDto", new ChangePasswordDto());
+        return "admin/user/changePassword";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping(path = "/changePassword")
+    public String changePassword( Model model,
+                                 HttpServletRequest request, @Valid ChangePasswordDto dto, BindingResult br) throws ServletException {
+        if(br.hasErrors())
+        {
+            br.getGlobalErrors().forEach(err->model.addAttribute(err.getDefaultMessage().split(":")[0], err.getDefaultMessage().split(":")[1]));
+            br.getFieldErrors().forEach(err-> model.addAttribute(err.getField(), err.getDefaultMessage()));
+            return this.changePassword(model);
+        }
+        userService.changePassWord(dto);
+        request.logout();
+        return "redirect:/login";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping(path = "/saveImage")
+    public String saveImage(Model model,UserImage image){
+        //model.addAttribute("image",image);
+        imageService.saveImage(image);
+        //request.logout();
+        return "redirect:/admin/utilisateur/profil";
+    }
+//Affichage de l'image
+    @GetMapping(path = "/photo/{userId}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    @ResponseBody
+    public byte[] displayPhoto(@PathVariable long userId)
+    {
+        String chemin  = imgRepo.findImgPath(userId);
+        return imageService.download(chemin == null ? ImgConstants.defaultUserImg : chemin);
+    }
 
 
 }

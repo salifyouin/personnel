@@ -17,6 +17,7 @@ import ci.dgmp.personnel.service.exception.AppException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,12 +31,14 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/admin/role")
+@PreAuthorize("isAuthenticated()")
 public class RoleController {
     private final RoleIservice roleService;
     private final RoleRepository roleRepo;
     private final PrivilegeToRoleIservice ptrService;
     private final PrivilegeRepository privilegeRepo;
 
+    @PreAuthorize("hasAnyAuthority('DEV','ADMIN')")
     @GetMapping("/index")
     public String index(Model model,
                         @RequestParam(name = "critere",defaultValue = "") String critere,
@@ -50,6 +53,7 @@ public class RoleController {
         return "admin/role/index";
     }
 
+    @PreAuthorize("hasAnyAuthority('DEV')")
     @PostMapping(path = "/save")
     public String saveRole(RoleReqDto role){
         roleService.saveRole(role);
@@ -57,6 +61,7 @@ public class RoleController {
         return "redirect:/admin/role/index";
     }
 
+    @PreAuthorize("hasAnyAuthority('DEV')")
     @GetMapping("/privilleges")
     public String privilegeToRoleIndex(Model model, @RequestParam(name = "roleId") Long roleId){
         //Recuperation du roleId
@@ -73,6 +78,7 @@ public class RoleController {
 
     }
 
+    @PreAuthorize("hasAnyAuthority('DEV')")
     @PostMapping(path = "/savePrivilege")
     public String savePrivilege(PrivilegeToRoleReqDto privilege, RedirectAttributes ra){
         ptrService.addPrivillegeToRole(privilege);
@@ -82,6 +88,7 @@ public class RoleController {
 
     //Revoquer un privilege a un utilisateur
     @GetMapping("/revokePrivilegeToRole")
+    @PreAuthorize("hasAnyAuthority('DEV')")
     public String revokePrivilegeToRole(@Param("roleId") Long roleId, @Param("prvId") Long prvId, RedirectAttributes ra)
     {
         ptrService.revokePrivilegeToRole(roleId, prvId);

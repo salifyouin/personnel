@@ -8,6 +8,7 @@ import ci.dgmp.personnel.security.model.entities.Privilege;
 import ci.dgmp.personnel.security.service.interfac.PrivilegeIservice;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,11 +20,13 @@ import javax.validation.Valid;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/admin/privillege")
+@PreAuthorize("isAuthenticated()")
 public class PrivilegeController {
     private final PrivilegeIservice privilegeService;
     private final PrivilegeRepository privilegeRepository;
-
     @GetMapping("/index")
+
+    @PreAuthorize("hasAnyAuthority('DEV','ADMIN')")
     public String index(Model model,
                         @RequestParam(name = "critere",defaultValue = "") String critere,
                         @RequestParam(defaultValue = "0") int page,
@@ -37,6 +40,8 @@ public class PrivilegeController {
         model.addAttribute("privilege",new Privilege());
         return "admin/privilege/index";
     }
+
+    @PreAuthorize("hasAnyAuthority('DEV')")
 
     @PostMapping(path = "/save")
     public String savePrivilege(@Valid Privilege privilege, BindingResult br, Model model){

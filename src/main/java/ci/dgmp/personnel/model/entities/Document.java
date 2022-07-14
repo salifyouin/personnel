@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Data
 @Builder
 @Entity
-public class DocumentAdministratif {
+public class Document {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long docId;
     private String docNom;

@@ -14,4 +14,6 @@ public interface AgentIservice {
     Page<AgentResDto> getPageAgentsSearch(String critere,int page, int size);
 
     Page<AgentResDto> getAllPagesAgents(int page, int size);
+
+    List<AgentResDto> getAllAgentsByStructure(Long strId);
 }
