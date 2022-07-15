@@ -1,5 +1,7 @@
 package ci.dgmp.personnel.security.configuration;
 
+import ci.dgmp.personnel.security.model.dto.request.ActiveUserAccountDto;
+import ci.dgmp.personnel.security.model.dto.request.ChangePasswordDto;
 import ci.dgmp.personnel.security.model.dto.request.UserReqDto;
 import ci.dgmp.personnel.security.service.interfac.UserIservice;
 import lombok.RequiredArgsConstructor;
@@ -62,6 +64,26 @@ public class SecurityController {
         return "/403";
     }
 
+    @RequestMapping("/accountActivation")
+    private String accountActivation(Model model){
+        model.addAttribute("user",new UserReqDto());
+        return "accountActivation";
+    }
+
+
+    @PostMapping(path = "/acitvedAccount")
+    public String acitvedAccount(Model model,
+                                 HttpServletRequest request, @Valid ActiveUserAccountDto dto, BindingResult br) throws ServletException {
+        if(br.hasErrors())
+        {
+            br.getGlobalErrors().forEach(err->model.addAttribute(err.getDefaultMessage().split(":")[0], err.getDefaultMessage().split(":")[1]));
+            br.getFieldErrors().forEach(err-> model.addAttribute(err.getField(), err.getDefaultMessage()));
+            return this.accountActivation(model);
+        }
+        userService.activatedAccount(dto);
+        request.logout();
+        return "redirect:/login";
+    }
 
 
 }

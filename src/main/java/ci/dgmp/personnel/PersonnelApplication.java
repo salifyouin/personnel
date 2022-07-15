@@ -55,7 +55,6 @@ public class PersonnelApplication {
         return (args) ->
         {
 
-
             System.out.println("============================");
 //            prvRepo.getActivePrivilegesForRole(3L).forEach(System.out::println);
 //            UserReqDto user = UserReqDto.builder()

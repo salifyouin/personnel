@@ -2,6 +2,7 @@ package ci.dgmp.personnel.security.service.implementation;
 
 import ci.dgmp.personnel.security.model.dao.UserRepository;
 import ci.dgmp.personnel.security.model.dto.mapper.UserMapper;
+import ci.dgmp.personnel.security.model.dto.request.ActiveUserAccountDto;
 import ci.dgmp.personnel.security.model.dto.request.ChangePasswordDto;
 import ci.dgmp.personnel.security.model.dto.request.UserReqDto;
 import ci.dgmp.personnel.security.model.entities.AppUser;
@@ -67,9 +68,11 @@ private final SecurityContextService scs;
         userRepo.save(authUser);
     }
 
-    @Override @Transactional
-    public void changePassWord(String oldPassword, String userPassword, String userConfirmPassword) {
-        ChangePasswordDto dto = new ChangePasswordDto(oldPassword, userPassword, userConfirmPassword);
-        this.changePassWord(dto);
+
+    @Override
+    public void activatedAccount(ActiveUserAccountDto dto) {
+        AppUser authUser = userRepo.findByUserLogin(scs.getAuthUsername()).get() ;
+        authUser.setUserPassword(passwordEncoder.encode(dto.getUserPassword()));
+        userRepo.save(authUser);
     }
 }

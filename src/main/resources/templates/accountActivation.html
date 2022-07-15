@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+
+
+<!-- Mirrored from eliteadmin.themedesigner.in/demos/bt4/horizontal-nav-fullwidth/accountActivation.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 27 Oct 2021 11:30:20 GMT -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
+    <title th:text="${@appConfig.getAppTitle()}"></title>
+    <link th:href="@{/dist/css/pages/login-register-lock.css}" rel="stylesheet">
+    <link th:href="@{/dist/css/style.min.css}" rel="stylesheet">
+</head>
+
+<body>
+    <div class="preloader">
+        <div class="loader">
+            <div class="loader__figure"></div>
+            <p class="loader__label" th:text="${@appConfig.getAppName()}"></p>
+        </div>
+    </div>
+    <section id="wrapper">
+        <div class="login-register" style="background-image:url(../assets/images/background/login-register.jpg);">
+            <div class="login-box card">
+                <div class="card-body">
+                    <form class="form-horizontal form-material" id="loginform">
+                        <h3 class="box-title m-b-20">Activation de compte</h3>
+                        <div class="form-group ">
+                            <div class="col-xs-12">
+                                <input class="form-control" type="text" required="" placeholder="Login">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <input class="form-control" type="password" required="" placeholder="Mot de passe">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <input class="form-control" type="password" required="" placeholder="Confirmation">
+                            </div>
+                        </div>
+                        <div class="form-group text-center p-b-10">
+                            <div class="col-xs-12">
+                                <button class="btn btn-info btn-lg w-100 text-uppercase waves-effect waves-light text-white" type="submit">Activer le compte</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script th:src="@{/assets/node_modules/jquery/dist/jquery.min.js}"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script th:src="@{/assets/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+    <script type="text/javascript">
+        $(function() {
+            $(".preloader").fadeOut();
+        });
+        
+    </script>
+</body>
+
+
+<!-- Mirrored from eliteadmin.themedesigner.in/demos/bt4/horizontal-nav-fullwidth/accountActivation.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 27 Oct 2021 11:30:20 GMT -->
+</html>

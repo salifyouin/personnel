@@ -11,7 +11,8 @@
     <meta name="author" content="YOUIN Salifou">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
-    <title>SIGRH - Login</title>
+<!--    <title>SIGRH - Login</title>-->
+    <title th:text="${@appConfig.getAppTitle()}"></title>
     
     <!-- page css -->
     <link th:href="@{/dist/css/pages/login-register-lock.css}" rel="stylesheet">

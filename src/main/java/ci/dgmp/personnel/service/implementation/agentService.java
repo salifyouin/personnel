@@ -13,6 +13,7 @@ import ci.dgmp.personnel.security.model.entities.AppUser;
 import ci.dgmp.personnel.service.exception.AppException;
 import ci.dgmp.personnel.service.exception.ErrorMessage;
 import ci.dgmp.personnel.service.interfac.AgentIservice;
+import ci.dgmp.personnel.service.interfac.ITokenService;
 import ci.dgmp.personnel.service.interfac.StructureIservice;
 import ci.dgmp.personnel.service.validator.AgentValidator;
 import lombok.RequiredArgsConstructor;
@@ -37,6 +38,7 @@ public class agentService implements AgentIservice {
  private final UserMapper userMapper;
  private final UserRepository userRepo;
  private final StructureIservice strService;
+ private final ITokenService tokenService;
 
     @Override @Transactional
     public void saveAgent(AgentReqDto agentReqDto) {
@@ -54,7 +56,8 @@ public class agentService implements AgentIservice {
         //Ajout d'un utilisateur
         AppUser user = userMapper.mapToUser(agentReqDto);
         user.setAgent(agent);
-        userRepo.save(user);
+        user = userRepo.save(user);
+        tokenService.generateToken(user);
     }
 
     @Override

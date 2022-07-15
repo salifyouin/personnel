@@ -14,7 +14,7 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" th:href="@{/assets/images/favicon.png}">
-    <title>SIGRH - Systeme Intégré de Gestion des Ressources Humaines</title>
+    <title th:text="${@appConfig.getAppTitle()}"></title>
     <!-- Custom CSS -->
 <!--    select menu 2-->
     <link th:href="@{/assets/node_modules/bootstrap-datepicker/bootstrap-datepicker.min.css}" rel="stylesheet" type="text/css" />
@@ -57,7 +57,7 @@
 <div class="preloader">
     <div class="loader">
         <div class="loader__figure"></div>
-        <p class="loader__label">SIGRH</p>
+        <p class="loader__label" th:text="${@appConfig.getAppName()}"></p>
     </div>
 </div>
 <!-- ============================================================== -->
