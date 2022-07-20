@@ -12,4 +12,13 @@ public class AppConfiguration {
 
     @Value("${appTile}")
     private String appTitle;
+
+    @Value("${system.mail.sender}")
+    private String systemMailSender;
+    @Value("${system.mail.activation.object}")
+    private String systemMailActivationObject;
+    @Value("${system.mail.reset.object}")
+    private String systemMailResetObject;
+    @Value("${system.app.address}")
+    private String appAddress;
 }

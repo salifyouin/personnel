@@ -82,7 +82,7 @@ public class AgentController {
 
     @PreAuthorize("hasAnyAuthority('RESPONSABLE RH','DEV')")
     @PostMapping(path = "/saveAgent")
-    public String saveAgent(@Valid AgentReqDto agent, BindingResult result, Model model, RedirectAttributes ra){
+    public String saveAgent(@Valid AgentReqDto agent, BindingResult result, Model model, RedirectAttributes ra) throws IllegalAccessException {
         if(result.hasErrors()) {
             System.out.println("Erreuuuuuuuuuuuuuuuuuuuuuuuuuuur");
             result.getAllErrors().forEach(err->log.info(err.toString()));

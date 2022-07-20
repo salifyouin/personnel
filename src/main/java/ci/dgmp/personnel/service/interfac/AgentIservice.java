@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface AgentIservice {
-    void saveAgent(AgentReqDto agent);
+    void saveAgent(AgentReqDto agent) throws IllegalAccessException;
     Page<AgentResDto> getPageAgentsSearch(String critere,int page, int size);
 
     Page<AgentResDto> getAllPagesAgents(int page, int size);

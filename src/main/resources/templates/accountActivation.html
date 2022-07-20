@@ -26,21 +26,27 @@
         <div class="login-register" style="background-image:url(../assets/images/background/login-register.jpg);">
             <div class="login-box card">
                 <div class="card-body">
-                    <form class="form-horizontal form-material" id="loginform">
+                    <form th:action="@{/acitvedAccount}" method="post" th:object="${activeUserAccountDto}" class="form-horizontal form-material" id="loginform">
                         <h3 class="box-title m-b-20">Activation de compte</h3>
+                        <input th:field="*{token}" class="form-control" type="text">
                         <div class="form-group ">
                             <div class="col-xs-12">
-                                <input class="form-control" type="text" required="" placeholder="Login">
+                                <input th:field="*{userEmail}" class="form-control" type="email" required="" placeholder="Email">
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <div class="col-xs-12">
+                                <input th:field="*{userLogin}" class="form-control" type="text" required="" placeholder="Login">
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-xs-12">
-                                <input class="form-control" type="password" required="" placeholder="Mot de passe">
+                                <input th:field="*{userPassword}" class="form-control" type="password" required="" placeholder="Mot de passe">
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-xs-12">
-                                <input class="form-control" type="password" required="" placeholder="Confirmation">
+                                <input th:field="*{userConfirmPassword}"  class="form-control" type="password" required="" placeholder="Confirmation">
                             </div>
                         </div>
                         <div class="form-group text-center p-b-10">

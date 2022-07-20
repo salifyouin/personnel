@@ -58,12 +58,6 @@
                             </div>
 
                             <div class="form-group m-b-40">
-                                <input th:field="*{agtUserName}" type="text" class="form-control" id="agtUserName">
-                                <span class="bar"></span>
-                                <label for="agtUserName">Nom d'utilisateur</label>
-                            </div>
-
-                            <div class="form-group m-b-40">
                                 <input th:field="*{agtAdresse}" type="email" class="form-control" id="agtAdresse">
                                 <span class="bar"></span>
                                 <label for="agtAdresse">E-mail</label>
@@ -100,24 +94,6 @@
                                     <option th:each="grade:${grades}" th:value="${grade.typId}" th:text="${grade.typLibelle}"></option>
                                 </select>
                             </div>
-
-
-<!--                            <div class="form-group m-b-40">-->
-<!--                                <input th:field="*{agtUserName}" type="text" class="form-control" id="login">-->
-<!--                                <span class="bar"></span>-->
-<!--                                <label for="login">Login</label>-->
-<!--                            </div>-->
-<!--                            <div class="form-group m-b-40">-->
-<!--                                <input th:field="*{agtPassword}" type="password" class="form-control" id="input2">-->
-<!--                                <span class="bar"></span>-->
-<!--                                <label for="input2">Password</label>-->
-<!--                            </div>-->
-<!--                            <div class="form-group m-b-40">-->
-<!--                                <input type="password" class="form-control" id="ConfirmPassword">-->
-<!--                                <span class="bar"></span>-->
-<!--                                <label for="ConfirmPassword">Confirmation</label>-->
-<!--                            </div>-->
-
 
                             <button  type="submit" class="btn btn-rounded btn-outline-info fa-pull-right">Enregistrer</button>
                             <a th:href="@{/agent/index}" type="button" class="btn btn-rounded btn-outline-dark fa-pull-left">Fermer</a>

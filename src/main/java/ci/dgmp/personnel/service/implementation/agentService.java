@@ -1,17 +1,15 @@
 package ci.dgmp.personnel.service.implementation;
 
+import ci.dgmp.personnel.email.service.interfac.EmailIservice;
 import ci.dgmp.personnel.model.dao.AgentRepository;
 import ci.dgmp.personnel.model.dto.AgentReqDto;
 import ci.dgmp.personnel.model.dto.AgentResDto;
 import ci.dgmp.personnel.model.dto.mapper.AgentMapper;
 import ci.dgmp.personnel.model.entities.Agent;
-import ci.dgmp.personnel.model.entities.Structure;
 import ci.dgmp.personnel.model.entities.Type;
 import ci.dgmp.personnel.security.model.dao.UserRepository;
 import ci.dgmp.personnel.security.model.dto.mapper.UserMapper;
 import ci.dgmp.personnel.security.model.entities.AppUser;
-import ci.dgmp.personnel.service.exception.AppException;
-import ci.dgmp.personnel.service.exception.ErrorMessage;
 import ci.dgmp.personnel.service.interfac.AgentIservice;
 import ci.dgmp.personnel.service.interfac.ITokenService;
 import ci.dgmp.personnel.service.interfac.StructureIservice;
@@ -23,8 +21,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,9 +35,10 @@ public class agentService implements AgentIservice {
  private final UserRepository userRepo;
  private final StructureIservice strService;
  private final ITokenService tokenService;
+ private final EmailIservice emailservice;
 
     @Override @Transactional
-    public void saveAgent(AgentReqDto agentReqDto) {
+    public void saveAgent(AgentReqDto agentReqDto) throws IllegalAccessException {
         //agentValidator.validateCreate(agentReqDto);
        //if (agentRepository.findByAgtUserName(agentReqDto.getAgtUserName())!=null) throw new  AppException(ErrorMessage.AGENT_EXIST_USERNAME);
         Agent agent =new Agent();
@@ -58,6 +55,7 @@ public class agentService implements AgentIservice {
         user.setAgent(agent);
         user = userRepo.save(user);
         tokenService.generateToken(user);
+        emailservice.sendActivationEmail(user);
     }
 
     @Override

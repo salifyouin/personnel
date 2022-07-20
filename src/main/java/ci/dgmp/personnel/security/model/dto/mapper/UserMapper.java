@@ -24,8 +24,8 @@ public interface UserMapper {
 
     @Mapping(target = "userNom", source = "dto.agtNom")
     @Mapping(target = "userPrenom", source = "dto.agtPrenom")
-    @Mapping(target = "userLogin", source = "dto.agtUserName")
-    @Mapping(target = "userPassword", source = "dto.agtPassword")
+    //@Mapping(target = "userLogin", source = "dto.agtUserName")
+    //@Mapping(target = "userPassword", source = "dto.agtPassword")
     @Mapping(target = "userTelephone", source = "dto.agtTel")
     @Mapping(target = "userEmail", source = "dto.agtAdresse")
     @Mapping(target = "createdAt", expression = "java(java.time.LocalDateTime.now())")

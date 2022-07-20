@@ -48,13 +48,6 @@ public class AgentReqDto {
 
     private String agtSituationMat;
 
-    @NotBlank(message = "Le nom d'utilisateur ne peut pas etre vide")
-    @NotNull(message = "Le nom d'utilisateur ne peut pas etre vide")
-    @ExisteUsername
-    private String agtUserName;
-
-    private String agtPassword;
-
     private Boolean agtActif;
 
     @NotNull(message = "Selectionez la fonction")

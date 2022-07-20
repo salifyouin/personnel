@@ -17,6 +17,7 @@ public class SecurityToken {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long tokenId;
     private String token;
+    private boolean alreadyUsed;
     private LocalDateTime tokenExpirationDate;
     @ManyToOne @JoinColumn(name = "TokenUserId")
     private AppUser appUser;

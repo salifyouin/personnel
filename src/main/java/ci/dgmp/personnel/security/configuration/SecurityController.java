@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -65,20 +66,25 @@ public class SecurityController {
     }
 
     @RequestMapping("/accountActivation")
-    private String accountActivation(Model model){
-        model.addAttribute("user",new UserReqDto());
+    private String accountActivation(Model model, @RequestParam String token)
+    {
+        ActiveUserAccountDto dto = ActiveUserAccountDto.builder().token(token).build();
+        model.addAttribute("activeUserAccountDto", dto);
         return "accountActivation";
     }
 
 
-    @PostMapping(path = "/acitvedAccount")
+    @PostMapping(path = "/acitvedAccount")//ce2eac6f-ee8c-4ad1-b75a-30510cfe5fac
     public String acitvedAccount(Model model,
                                  HttpServletRequest request, @Valid ActiveUserAccountDto dto, BindingResult br) throws ServletException {
         if(br.hasErrors())
         {
-            br.getGlobalErrors().forEach(err->model.addAttribute(err.getDefaultMessage().split(":")[0], err.getDefaultMessage().split(":")[1]));
+            br.getAllErrors();
+            br.getGlobalErrors().forEach(err->{
+                if(err.getDefaultMessage().indexOf(":")<0) model.addAttribute("globalError", err.getDefaultMessage());
+                else  model.addAttribute(err.getDefaultMessage().split(":")[0], err.getDefaultMessage().split(":")[1]);});
             br.getFieldErrors().forEach(err-> model.addAttribute(err.getField(), err.getDefaultMessage()));
-            return this.accountActivation(model);
+            return this.accountActivation(model, dto.getToken());
         }
         userService.activatedAccount(dto);
         request.logout();
