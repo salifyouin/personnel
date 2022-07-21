@@ -2,6 +2,7 @@ package ci.dgmp.personnel.security.service.interfac;
 
 import ci.dgmp.personnel.security.model.dto.request.ActiveUserAccountDto;
 import ci.dgmp.personnel.security.model.dto.request.ChangePasswordDto;
+import ci.dgmp.personnel.security.model.dto.request.ResetUserAccountDto;
 import ci.dgmp.personnel.security.model.dto.request.UserReqDto;
 import ci.dgmp.personnel.security.model.entities.AppUser;
 import ci.dgmp.personnel.security.model.projection.AppUserInfo;
@@ -15,5 +16,6 @@ public interface UserIservice {
     void updateUserProfile(AppUser user);
     void changePassWord(ChangePasswordDto dto);
     void activatedAccount(ActiveUserAccountDto dto);
+    void resetPassword(ResetUserAccountDto dto);
 
 }

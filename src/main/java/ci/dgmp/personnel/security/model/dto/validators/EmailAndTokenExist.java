@@ -2,6 +2,7 @@ package ci.dgmp.personnel.security.model.dto.validators;
 
 import ci.dgmp.personnel.security.model.dao.SecurityTokenRepo;
 import ci.dgmp.personnel.security.model.dto.request.ActiveUserAccountDto;
+import ci.dgmp.personnel.security.model.dto.request.ResetUserAccountDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +14,7 @@ import java.lang.annotation.*;
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = {EmailAndTokenExist.EmailAndTokenExistValidator.class})
+@Constraint(validatedBy = {EmailAndTokenExist.EmailAndTokenExistValidator.class, EmailAndTokenExist.EmailAndTokenExistValidatorForResetPassword.class})
 @Documented
 public @interface EmailAndTokenExist
 {
@@ -28,6 +29,20 @@ public @interface EmailAndTokenExist
         private final SecurityTokenRepo stkRepo;
         @Override
         public boolean isValid(ActiveUserAccountDto dto, ConstraintValidatorContext context)
+        {
+            String email = dto.getUserEmail();
+            String token = dto.getToken();
+            return stkRepo.existsByTokenAndEmail(token, email) ;
+        }
+    }
+
+    @Component
+    @RequiredArgsConstructor
+    class EmailAndTokenExistValidatorForResetPassword implements ConstraintValidator<EmailAndTokenExist, ResetUserAccountDto>
+    {
+        private final SecurityTokenRepo stkRepo;
+        @Override
+        public boolean isValid(ResetUserAccountDto dto, ConstraintValidatorContext context)
         {
             String email = dto.getUserEmail();
             String token = dto.getToken();

@@ -54,11 +54,7 @@
 <!-- ============================================================== -->
 <!-- Preloader - style you can find in spinners.css -->
 <!-- ============================================================== -->
-<div class="preloader">
-    <div class="loader">
-        <div class="loader__figure"></div>
-        <p class="loader__label" th:text="${@appConfig.getAppName()}"></p>
-    </div>
+<div class="preloader" data-th-replace="Fragments/fr-preloder::preloder">
 </div>
 <!-- ============================================================== -->
 <!-- Main wrapper - style you can find in pages.scss -->

@@ -5,6 +5,7 @@ import ci.dgmp.personnel.security.model.dao.UserRepository;
 import ci.dgmp.personnel.security.model.dto.mapper.UserMapper;
 import ci.dgmp.personnel.security.model.dto.request.ActiveUserAccountDto;
 import ci.dgmp.personnel.security.model.dto.request.ChangePasswordDto;
+import ci.dgmp.personnel.security.model.dto.request.ResetUserAccountDto;
 import ci.dgmp.personnel.security.model.dto.request.UserReqDto;
 import ci.dgmp.personnel.security.model.entities.AppUser;
 import ci.dgmp.personnel.security.model.entities.SecurityToken;
@@ -80,7 +81,16 @@ private final SecurityTokenRepo tokenRepo;
         user.setUserLogin(dto.getUserLogin());
         user.setUserActive(true);
         user.setUpdatedAt(LocalDateTime.now());
+        tokenRepo.setAlreadyUsed(dto.getToken(), true);
+        userRepo.save(user);
+    }
 
+    @Override @Transactional
+    public void resetPassword(ResetUserAccountDto dto)
+    {
+        AppUser user = userRepo.findByUserEmail(dto.getUserEmail()).get() ;
+        user.setUserPassword(passwordEncoder.encode(dto.getUserPassword()));
+        user.setUpdatedAt(LocalDateTime.now());
         tokenRepo.setAlreadyUsed(dto.getToken(), true);
         userRepo.save(user);
     }

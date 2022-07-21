@@ -9,6 +9,7 @@ public interface EmailIservice {
 
     @Async
     void sendEmail(String senderMail, String receiverMail, String mailObject, String message) throws IllegalAccessException;
-    Email sendActivationEmail(AppUser user) throws IllegalAccessException;
+    Email sendActivationEmail(AppUser user, String token) throws IllegalAccessException;
+    Email sendRestEmail(String userEmail) throws IllegalAccessException;
 
 }

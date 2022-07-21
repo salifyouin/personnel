@@ -1,6 +1,9 @@
 package ci.dgmp.personnel.security.model.dto.request;
 
-import ci.dgmp.personnel.security.model.dto.validators.*;
+import ci.dgmp.personnel.security.model.dto.validators.ConfirmPassword;
+import ci.dgmp.personnel.security.model.dto.validators.EmailAndTokenExist;
+import ci.dgmp.personnel.security.model.dto.validators.NoneExpiredToken;
+import ci.dgmp.personnel.security.model.dto.validators.UniqueLogin;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,14 +15,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Data @NoArgsConstructor @AllArgsConstructor @Builder @ConfirmPassword @EmailAndTokenExist
-public class ActiveUserAccountDto
+public class ResetUserAccountDto
 {
-    @NotBlank(message = "Le login ne peut être vide")
-    @Length(message = "Le login doit contenir au moins 3 caractères", min = 3)
-    @NotNull(message = "Le login ne peut être null")
-    @UniqueLogin
-    private String userLogin;
-
     @Email(message = "Adresse mail invalide")
     @NotBlank(message = "L'adresse email ne peut être vide")
     @NotNull(message = "L'adresse email ne peut être null")

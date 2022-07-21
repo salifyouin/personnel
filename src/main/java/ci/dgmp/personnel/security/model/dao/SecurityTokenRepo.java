@@ -14,6 +14,18 @@ public interface SecurityTokenRepo extends JpaRepository<SecurityToken, Long> {
     @Query("select (count(s) > 0) from SecurityToken s where s.token = ?1 and s.appUser.userEmail = ?2")
     boolean existsByTokenAndEmail(String token, String userEmail);
 
+    @Query("select (count(s) > 0) from SecurityToken s where s.appUser.userEmail = ?1")
+    boolean existsByUser(String userEmail);
+
+    @Query("select (count(s) > 0) from SecurityToken s where s.appUser.userId = ?1")
+    boolean existsByUser(Long userId);
+
+    @Query("select s from SecurityToken s where s.appUser.userEmail = ?1")
+    SecurityToken findByByUser(String userEmail);
+
+    @Query("select s from SecurityToken s where s.appUser.userId = ?1")
+    SecurityToken findByByUser(Long userId);
+
     @Query("select (count(s) > 0) from SecurityToken s where s.token = ?1 and s.tokenExpirationDate >= current_date ")
     boolean tokenIsNotExpired(String token);
 

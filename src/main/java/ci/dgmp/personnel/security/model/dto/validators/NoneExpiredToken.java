@@ -11,7 +11,7 @@ import javax.validation.ConstraintValidatorContext;
 import javax.validation.Payload;
 import java.lang.annotation.*;
 
-@Target(ElementType.TYPE)
+@Target({ElementType.TYPE, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = {NoneExpiredToken.NoneExpiredTokenValidator.class})
 @Documented
@@ -23,13 +23,13 @@ public @interface NoneExpiredToken
 
     @Component
     @RequiredArgsConstructor
-    class NoneExpiredTokenValidator implements ConstraintValidator<NoneExpiredToken, ActiveUserAccountDto>
+    class NoneExpiredTokenValidator implements ConstraintValidator<NoneExpiredToken, String>
     {
         private final SecurityTokenRepo stkRepo;
         @Override
-        public boolean isValid(ActiveUserAccountDto dto, ConstraintValidatorContext context)
+        public boolean isValid(String token, ConstraintValidatorContext context)
         {
-            return stkRepo.tokenIsNotExpired(dto.getToken());
+            return stkRepo.tokenIsNotExpired(token);
         }
     }
 }

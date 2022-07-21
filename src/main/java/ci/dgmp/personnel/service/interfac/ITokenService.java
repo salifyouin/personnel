@@ -6,4 +6,6 @@ import ci.dgmp.personnel.security.model.entities.SecurityToken;
 public interface ITokenService
 {
     SecurityToken generateToken(AppUser user);
+
+    SecurityToken generateToken(String userEmail);
 }

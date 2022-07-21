@@ -10,6 +10,7 @@ import ci.dgmp.personnel.model.entities.Type;
 import ci.dgmp.personnel.security.model.dao.UserRepository;
 import ci.dgmp.personnel.security.model.dto.mapper.UserMapper;
 import ci.dgmp.personnel.security.model.entities.AppUser;
+import ci.dgmp.personnel.security.model.entities.SecurityToken;
 import ci.dgmp.personnel.service.interfac.AgentIservice;
 import ci.dgmp.personnel.service.interfac.ITokenService;
 import ci.dgmp.personnel.service.interfac.StructureIservice;
@@ -54,8 +55,8 @@ public class agentService implements AgentIservice {
         AppUser user = userMapper.mapToUser(agentReqDto);
         user.setAgent(agent);
         user = userRepo.save(user);
-        tokenService.generateToken(user);
-        emailservice.sendActivationEmail(user);
+        SecurityToken token = tokenService.generateToken(user);
+        emailservice.sendActivationEmail(user, token.getToken());
     }
 
     @Override
