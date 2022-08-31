@@ -45,5 +45,6 @@ public class Agent {
     private Type grade;
 
     public Agent(long demAgtId) {
+        this.agtId = demAgtId;
     }
 }

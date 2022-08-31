@@ -9,14 +9,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Builder
-public class StructureReqDto {
-    private Long strId;
-    private String strCode;
+public class StructureReqDto
+{
     private String strSigle;
     private String strLibelle;
     private Long strStrId;
     private Long strtypId;
-    private String typStrLibelle;
 
 //    public StructureResDto(Agent agent) {
 //        BeanUtils.copyProperties(agent, this);

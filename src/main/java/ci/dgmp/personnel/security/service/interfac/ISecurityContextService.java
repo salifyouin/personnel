@@ -1,5 +1,6 @@
 package ci.dgmp.personnel.security.service.interfac;
 
+import ci.dgmp.personnel.historisation.entities.HistoData;
 import ci.dgmp.personnel.security.model.entities.AppUser;
 import ci.dgmp.personnel.security.model.projection.RoleToUserInfo;
 
@@ -19,4 +20,7 @@ public interface ISecurityContextService {
     List<String> getUserAuthorities();
 
     void refreshSecurityContext();
+
+    HistoData getHistoData();
+    HistoData getHistoData(String action);
 }

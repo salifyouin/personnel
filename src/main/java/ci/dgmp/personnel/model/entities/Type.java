@@ -19,6 +19,7 @@ public class Type {
  @ManyToOne
  @JoinColumn(name = "typTypId")
  private Type type;
+ private Long typLevel;
 
  public Type(Long typId) {
   this.typId = typId;

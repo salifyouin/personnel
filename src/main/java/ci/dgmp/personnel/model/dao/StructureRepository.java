@@ -31,6 +31,12 @@ public interface StructureRepository extends JpaRepository<Structure, Long> {
     @Query("select s from Structure s where s.tutelleDirecte.strId is not null order by s.strLibelle")
     List<StructureInfo> getAllStructureFille();
 
+    @Query("select s from Structure s where s.type.typLevel <( select t.typLevel from Type t where t.typId = ?1)")
+    List<Structure> getStrMereByTypeId(Long typId);
+
+    @Query("select s from Structure s where s.type.typLevel < ?1")
+    List<Structure> getStrMereByTypeLevel(Long level);
+
 
 
 

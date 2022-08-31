@@ -15,8 +15,8 @@
             <h4 class="text-themecolor">Liste des demandes d'autorisations d'absences</h4>
         </div>
         <div class="col-md-5">
-            <form th:action="@{/agent/index}" method="get" class="app-search d-none d-md-block d-lg-block">
-                <input th:value="${critere}" name="critere" type="text" class="form-control" placeholder="Saisissez votre critère de recherche" />
+            <form method="get" class="app-search d-none d-md-block d-lg-block">
+                <input name="critere" type="text" class="form-control" placeholder="Saisissez votre critère de recherche" />
                     <button  type="submit" class="btn btn-rounded btn-outline-info" >Chercher</button>
             </form>
         </div>
@@ -31,7 +31,7 @@
             </div>
         </div>
         <div class="col-md-2">
-            <a th:href="@{/demande/autorisationAbsence/addDemande}" type="button" class="btn btn-outline-info btn-rounded m-t-10 float-end">Nouvelle demande</a>
+            <a th:href="@{/demande/absence/addAbsence}" type="button" class="btn btn-outline-info btn-rounded m-t-10 float-end">Nouvelle demande</a>
         </div>
     </div>
     <!-- ============================================================== -->
@@ -56,26 +56,22 @@
                         <table  id="mainTable" class="table editable-table table-bordered table-striped m-b-0 color-table info-table">
                             <thead>
                             <tr>
-                                <th>Matricule</th>
-                                <th>Nom</th>
-                                <th>Prenom</th>
-                                <th>Date de naissance</th>
-                                <th>Foction</th>
-                                <th>Grade</th>
-                                <th>Structure</th>
+                                <th>Objet</th>
+                                <th>Motif</th>
+                                <th>Nbr jour</th>
+                                <th>Date debut</th>
+                                <th>Date fin</th>
                                 <th>Actions</th>
                             </tr>
                             </thead>
                             <tbody>
 
-                            <tr th:each="agent:${listAgents.getContent()}">
-                                <td class="col-md-1" th:text="${agent.agtMatricule}"></td>
-                                <td class="col-md-1" th:text="${agent.agtNom}"></td>
-                                <td class="col-md-2" th:text="${agent.agtPrenom}"></td>
-                                <td class="col-md-2" th:text="${agent.agtDateNaissance}"></td>
-                                <td class="col-md-2" th:text="${agent.fonction}"></td>
-                                <td class="col-md-1" th:text="${agent.agtGradeLibelle}"></td>
-                                <td class="col-md-2" th:text="${agent.structure}"></td>
+                            <tr th:each="absence:${absences}">
+                                <td class="col-md-4" th:text="${absence.demObjet}"></td>
+                                <td class="col-md-4" th:text="${absence.demMotif}"></td>
+                                <td class="col-md-1" th:text="${absence.demNbreJour}"></td>
+                                <td class="col-md-1" th:text="${absence.demDateDebut}"></td>
+                                <td class="col-md-1" th:text="${absence.demDateFin}"></td>
                                 <td class="col-md-1">
                                     <div class="btn-group">
                                         <button type="button"
@@ -106,7 +102,7 @@
                     </div>
 
 
-                    <ul class="pagination mt-3">
+                 <!--   <ul class="pagination mt-3">
                         <li class="paginate_button page-item previous" id="example23_previous"><a href="#"
                                                                                                   aria-controls="example23"
                                                                                                   data-dt-idx="0"
@@ -122,7 +118,7 @@
                                                                                           data-dt-idx="7" tabindex="0"
                                                                                           class="page-link">Next</a>
                         </li>
-                    </ul>
+                    </ul>-->
                 </div>
             </div>
         </div>

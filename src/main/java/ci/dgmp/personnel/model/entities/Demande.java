@@ -10,9 +10,12 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "demType",length = 4)
+//@Entity
+//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+//@Inheritance(strategy = InheritanceType.JOINED)
+//@DiscriminatorColumn(name = "demType")
+@MappedSuperclass
 public abstract class Demande {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,5 +1,7 @@
 package ci.dgmp.personnel.security.service.implementation;
 
+import ci.dgmp.personnel.historisation.dto.mapper.HistoStructureMapper;
+import ci.dgmp.personnel.historisation.entities.HistoData;
 import ci.dgmp.personnel.security.model.dao.RoleToUserRepository;
 import ci.dgmp.personnel.security.model.dao.UserRepository;
 import ci.dgmp.personnel.security.model.entities.AppUser;
@@ -25,6 +27,7 @@ public class SecurityContextService implements ISecurityContextService
     private final RoleToUserRepository rtuRepo;
     private final IAuthorityService authorityService;
     private final UserRepository userRepo;
+    private final HistoStructureMapper histoMapper;
 
     @Override
     public String getAuthUsername()
@@ -76,5 +79,18 @@ public class SecurityContextService implements ISecurityContextService
         Collection<? extends GrantedAuthority> auths = authorityService.getUserAuthorities(user.getUserId());
         Authentication authentication = new UsernamePasswordAuthenticationToken(new AppUserDetails(user, auths), null, auths);
         SecurityContextHolder.getContext().setAuthentication(authentication);
+    }
+
+    @Override
+    public HistoData getHistoData(String action)
+    {
+        AppUser user = this.getAuthUser();
+        return this.histoMapper.mapToHistoData(user, action);
+    }
+
+    @Override
+    public HistoData getHistoData()
+    {
+        return this.getHistoData("");
     }
 }

@@ -17,9 +17,9 @@ public class Document {
     private Long docId;
     private String docNom;
     private String docChemain;
-    @ManyToOne
-    @JoinColumn(name = "docDemId")
-    private Demande demande;
+//    @ManyToOne
+//    @JoinColumn(name = "docDemId")
+//    private Demande demande;
     @ManyToOne
     @JoinColumn(name = "docTypId")
     private Type type;

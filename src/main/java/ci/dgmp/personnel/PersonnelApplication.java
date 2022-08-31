@@ -1,9 +1,8 @@
 package ci.dgmp.personnel;
 
 import ci.dgmp.personnel.model.dao.*;
-import ci.dgmp.personnel.model.dto.DemandeReqDto;
+//import ci.dgmp.personnel.model.dto.DemandeReqDto;
 import ci.dgmp.personnel.model.dto.StructureResDto;
-import ci.dgmp.personnel.model.dto.mapper.IDemandeMapper;
 import ci.dgmp.personnel.model.entities.*;
 import ci.dgmp.personnel.security.model.dao.PrivilegeRepository;
 import ci.dgmp.personnel.security.model.dao.PrivilegeToRoleRepository;
@@ -50,7 +49,7 @@ public class PersonnelApplication {
     //@Bean
     CommandLineRunner start(RoleIservice roleservice, TypeRepository typeRepository, AgentRepository agentRepository,
                             TypeIservice typeservice, StructureRepository structureRepository, RoleMapper roleMapper,
-                            StructureIservice strService, DemandeRepository demandeRepository, IDemandeMapper demandeMapper,
+                            StructureIservice strService, DemandeRepository demandeRepository,
                             PrivilegeToRoleRepository ptrRepo, PrivilegeRepository prvRepo, RoleRepository roleRepo, UserIservice userService) {
         return (args) ->
         {
@@ -66,10 +65,10 @@ public class PersonnelApplication {
             //Roles
 
             //Type type31 = typeRepository.save(new Type(null,"Grade","A7",type30));
-            Role admin = roleRepo.save(new Role(1,"ADMIN","ADMIN",true,LocalDateTime.now(),null));
+           /* Role admin = roleRepo.save(new Role(1,"ADMIN","ADMIN",true,LocalDateTime.now(),null));
             Role users = roleRepo.save(new Role(2,"USER","USER",true,LocalDateTime.now(),null));
             Role dev = roleRepo.save(new Role(3,"DEV","DEV",true,LocalDateTime.now(),null));
-            Role agent = roleRepo.save(new Role(4,"AGENT","AGENT",true,LocalDateTime.now(),null));
+            Role agent = roleRepo.save(new Role(4,"AGENT","AGENT",true,LocalDateTime.now(),null));*/
 
 //            Role role1=roleMapper.mapToRole(RoleReqDto.builder().build());
 //            roleservice.saveRole(role1);
@@ -80,56 +79,55 @@ public class PersonnelApplication {
 //            Role validation = roleRepository.save(new Role(null,"Validation"));
             //Type
             // TYPE AGENT
-            Type type00 = typeRepository.save(new Type(null,"TypeAgent","types agent",null));
-            Type type01 = typeRepository.save(new Type(null,"TypeAgent","Fonctionnaire",type00));
-            Type type02 = typeRepository.save(new Type(null,"TypeAgent","Stagiaire",type00));
+            Type type00 = typeRepository.save(new Type(null,"TypeAgent","types agent",null,0L));
+            Type type01 = typeRepository.save(new Type(null,"TypeAgent","Fonctionnaire",type00,1L));
+            Type type02 = typeRepository.save(new Type(null,"TypeAgent","Stagiaire",type00,1L));
             //FONCTION
-            Type type10 = typeRepository.save(new Type(null,"Fonction","Fonctions",null));
-            Type type11 = typeRepository.save(new Type(null,"Fonction","Contractuel",type10));
-            Type type12 = typeRepository.save(new Type(null,"Fonction","Agent",type10));
-            Type type13 = typeRepository.save(new Type(null,"Fonction","Chargé d'études",type10));
+            Type type10 = typeRepository.save(new Type(null,"Fonction","Fonctions",null,0L));
+            Type type11 = typeRepository.save(new Type(null,"Fonction","Contractuel",type10,1L));
+            Type type12 = typeRepository.save(new Type(null,"Fonction","Agent",type10,1L));
+            Type type13 = typeRepository.save(new Type(null,"Fonction","Chargé d'études",type10,1L));
             //TYPE STRUCTURE
-            Type type20 = typeRepository.save(new Type(null,"STR","Structure",null));
-            Type type21 = typeRepository.save(new Type(null,"STR","Ministère",type20));
-            Type type22 = typeRepository.save(new Type(null,"STR","Direction Générale",type20));
-            Type type23 = typeRepository.save(new Type(null,"STR","Direction Centrale",type20));
-            Type type24 = typeRepository.save(new Type(null,"STR","Direction Centrale",type20));
-            Type type25 = typeRepository.save(new Type(null,"STR","Direction Régionale",type20));
-            Type type26 = typeRepository.save(new Type(null,"STR","Sous Direction",type20));
-            Type type27 = typeRepository.save(new Type(null,"STR","Service",type20));
-            Type type28 = typeRepository.save(new Type(null,"STR","Céllule",type20));
+            Type type20 = typeRepository.save(new Type(null,"STR","Structure",null,0L));
+            Type type21 = typeRepository.save(new Type(null,"MIN","Ministère",type20,1L));
+            Type type22 = typeRepository.save(new Type(null,"DG","Direction Générale",type20,2L));
+            Type type23 = typeRepository.save(new Type(null,"DC","Direction Centrale",type20,3L));
+            Type type25 = typeRepository.save(new Type(null,"DR","Direction Régionale",type20,4L));
+            Type type26 = typeRepository.save(new Type(null,"SD","Sous Direction",type20,5L));
+            Type type27 = typeRepository.save(new Type(null,"SCE","Service",type20,6L));
+            Type type28 = typeRepository.save(new Type(null,"CEL","Céllule",type20,7L));
 
             //MINISTERE
             ///Structure stucture1=structureRepository.save(new Structure(null,"STR","STR","Structure",null,type20));
-            Structure stucture2=structureRepository.save(new Structure(null,"M001","MBPE","Ministère du budget et du portefeuille de l'Etat",null,type20));
+           /* Structure stucture2=structureRepository.save(new Structure(null,"M001","MBPE","Ministère du budget et du portefeuille de l'Etat",null,type20));
             Structure stucture3=structureRepository.save(new Structure(null,"MEF","MEF","Ministère de l'econnomie et des finances",null,type20));
             //STRUCTURE
 
             Structure stucture5=structureRepository.save(new Structure(null,"DGMP01","AA","Direction Generale des Marches publics",stucture2,type22));
             Structure stucture6=structureRepository.save(new Structure(null,"DR0001","AA","Direction Régionale 1",stucture5,type23));
             Structure stucture7=structureRepository.save(new Structure(null,"DR0002","AA","Direction Régionale 2",stucture5,type23));
-            Structure stucture8=structureRepository.save(new Structure(null,"SC0001","AA","Direction Centrale 1",stucture5,type24));
+            Structure stucture8=structureRepository.save(new Structure(null,"SC0001","AA","Direction Centrale 1",stucture5,type23));
             Structure stucture9=structureRepository.save(new Structure(null,"SD0001","AA","Sous Direction1",stucture6,type26));
             Structure stucture10=structureRepository.save(new Structure(null,"SER001","AA","Service DGPM 1",stucture9,type27));
             Structure stucture11=structureRepository.save(new Structure(null,"CEL001","AA","Céllule DGPM ",stucture10,type28));
-
+*/
             //GRADES
-            Type type30 = typeRepository.save(new Type(null,"Grade","Grades",null));
-            Type type31 = typeRepository.save(new Type(null,"Grade","A7",type30));
-            Type type32 = typeRepository.save(new Type(null,"Grade","A6",type30));
-            Type type33 = typeRepository.save(new Type(null,"Grade","A5",type30));
-            Type type34 = typeRepository.save(new Type(null,"Grade","A4",type30));
-            Type type35 = typeRepository.save(new Type(null,"Grade","A3",type30));
-            Type type36 = typeRepository.save(new Type(null,"Grade","A2",type30));
-            Type type37 = typeRepository.save(new Type(null,"Grade","A1",type30));
+            Type type30 = typeRepository.save(new Type(null,"Grade","Grades",null,0L));
+            Type type31 = typeRepository.save(new Type(null,"Grade","A7",type30,1L));
+            Type type32 = typeRepository.save(new Type(null,"Grade","A6",type30,2L));
+            Type type33 = typeRepository.save(new Type(null,"Grade","A5",type30,3L));
+            Type type34 = typeRepository.save(new Type(null,"Grade","A4",type30,4L));
+            Type type35 = typeRepository.save(new Type(null,"Grade","A3",type30,5L));
+            Type type36 = typeRepository.save(new Type(null,"Grade","A2",type30,6L));
+            Type type37 = typeRepository.save(new Type(null,"Grade","A1",type30,7L));
 
-            Type type38 = typeRepository.save(new Type(null,"Grade","B3",type30));
-            Type type39 = typeRepository.save(new Type(null,"Grade","B2",type30));
-            Type type391 = typeRepository.save(new Type(null,"Grade","C1",type30));
-            Type type392 = typeRepository.save(new Type(null,"Grade","C2",type30));
-            Type type393 = typeRepository.save(new Type(null,"Grade","C3",type30));
-            Type type394 = typeRepository.save(new Type(null,"Grade","D1",type30));
-            Type type395 = typeRepository.save(new Type(null,"Grade","D2",type30));
+            Type type38 = typeRepository.save(new Type(null,"Grade","B3",type30,8L));
+            Type type39 = typeRepository.save(new Type(null,"Grade","B2",type30,9L));
+            Type type391 = typeRepository.save(new Type(null,"Grade","C1",type30,12L));
+            Type type392 = typeRepository.save(new Type(null,"Grade","C2",type30,11L));
+            Type type393 = typeRepository.save(new Type(null,"Grade","C3",type30,10L));
+            Type type394 = typeRepository.save(new Type(null,"Grade","D1",type30,14L));
+            Type type395 = typeRepository.save(new Type(null,"Grade","D2",type30,13L));
 
 //            Agent agent1=agentRepository.save(Agent.builder()
 //                    .agtNom("SALIF").agtActif(true).agtAdresse("SALIF-ADRESS")

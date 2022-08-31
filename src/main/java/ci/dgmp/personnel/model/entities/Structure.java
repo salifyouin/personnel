@@ -21,6 +21,7 @@ public class Structure {
     private String strCode;
     private String strSigle;
     private String strLibelle;
+    private long strLevel;
     @ManyToOne
     @JoinColumn(name = "str_tutelle_directe_Id") @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Structure tutelleDirecte;

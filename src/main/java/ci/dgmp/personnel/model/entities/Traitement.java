@@ -20,9 +20,9 @@ public class Traitement {
     private Long traitId;
     private LocalDateTime traitDate;
     private String traitObservation;
-    @ManyToOne
-    @JoinColumn(name = "traiDemId")
-    private Demande demande;
+//    @ManyToOne
+//    @JoinColumn(name = "traiDemId")
+//    private Demande demande;
     @ManyToOne
     @JoinColumn(name = "traiTypId")
     private Type type;

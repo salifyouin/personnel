@@ -17,6 +17,14 @@ public interface TypeRepository extends JpaRepository<Type, Long> {
 
     List<Type> findByType_TypIdOrderByTypIdDesc(Long typId);
 
+    @Query("select t from Type t where t.type.typId = (select t2.typId from Type t2 where t2.typCode = ?1)")
+    List<Type> getTypesFils(String typeCode);
+
+
+
+
+
+
 
     List<Type> findByType_TypIdIsNull();
     //List<Type> findTypeByType_TypId

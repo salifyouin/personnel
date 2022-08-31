@@ -440,6 +440,24 @@
                 //templateSelection: formatRepoSelection // omitted for brevity, see the source of this page
             });
         });
+
+            $("#typeStructure").change(function(){
+            //alert("Changement type OK")
+                const level = $("#typeStructure").val();
+            $.ajax({url: "http://localhost:5000/parametres/structure/getStrMereByTypeLevel?typId="+level, success: function(result)
+                {
+                    $("#structure option").remove();
+                    $("#structure").append("<option value='' >Veuillez sélectionner la structure de tutelle</option>")
+                    $.each(result, ( index, value ) =>
+                    {
+                        $("#structure").append("<option value=" + value.strId + ">"+ value.strLibelle +"</option>" )
+                    });
+
+                }, error: (err)=> {
+                    alert("Erreur")
+                    console.log(err)
+                }});
+            });
     </script>
 
     <script>

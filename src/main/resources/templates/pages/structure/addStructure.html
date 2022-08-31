@@ -12,13 +12,13 @@
     <!-- ============================================================== -->
     <div class="row page-titles">
         <div class="col-md-5 align-self-center">
-            <h4 class="text-themecolor">Nouvel agent</h4>
+            <h4 class="text-themecolor">Nouvelle structure</h4>
         </div>
         <div class="col-md-7 align-self-center text-end">
             <div class="d-flex justify-content-end align-items-center">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="javascript:void(0)">index</a></li>
-                    <li class="breadcrumb-item active">Nouvel agent</li>
+                    <li class="breadcrumb-item active">Nouvelle structure</li>
                 </ol>
 
             </div>
@@ -32,80 +32,44 @@
     <!-- ============================================================== -->
     <div class="row">
         <div class="card">
-            <form th:action="@{/agent/saveAgent}" method="POST" th:object="${agent}" class="floating-labels m-t-40">
+            <form th:action="@{/parametres/structure/saveStructure}" method="post" th:object="${strDto}"  class="floating-labels m-t-40">
 
                 <div class="row justify-content-center">
                     <div class="col-md-6">
                         <div class="form-group m-b-30 m-t-40" >
+
                             <div class="form-group m-b-40">
-                                <input th:field="*{agtMatricule}" type="text" class="form-control" id="matricule">
-                                <span class="bar" th:if="${#fields.hasErrors('agtMatricule')}" th:errors="*{agtMatricule}"></span>
-                                <label for="matricule">matricule</label>
+                                <select  class="select2 form-control form-select" id="typeStructure" th:field="*{strtypId}">
+                                    <option value="">Selectionnez le type structure</option>
+                                    <option th:each="type : ${typesStr}" th:value="${type.typId}" >[[${type.typLibelle}]]</option>
+                                </select>
                             </div>
                             <div class="form-group m-b-40">
-                                <input th:errorClass="border-danger" th:field="*{agtNom}" type="text" class="form-control" id="nom">
-                                <span class="bar"></span>
-                                <label for="nom">Nom</label>
-                                <p th:errorclass="text-danger" th:errors="*{agtNom}" />
-                                <span class="bar" th:if="${#fields.hasErrors('agtNom')}" th:errors="*{agtNom}"></span>
-                                <div  class="text-danger" th:errors="*{agtNom}">
+                                <select  class="select2 form-control form-select" id="structure" th:field="*{strStrId}" />
+                                    <option value="">Veuillez sélectionner la structure de tutelle</option>
+                                </select>
+                            </div>
+                         <!--   <div class="form-group m-b-40">
+                                <input type="text" class="form-control" id="code">
+                                <label for="code">Code</label>
+                            </div>-->
+                            <div class="form-group m-b-40">
+                                <input  type="text" class="form-control" id="libelle" th:field="*{strLibelle}" />
+                                <label for="libelle">Libelle</label>
                                 </div>
                             </div>
-                            <div class="form-group m-b-40">
-                                <input th:field="*{agtPrenom}" type="text" class="form-control" id="prenom">
-                                <span class="bar"></span>
-                                <label for="prenom">Prenom(s)</label>
-                            </div>
+
+                                <div class="form-group m-b-40">
+                                    <input  type="text" class="form-control" id="Sigle" th:field="*{strSigle}" />
+                                    <label for="Sigle">Sigle</label>
+                                </div>
 
 
 
-                            <div class="form-group m-b-40">
-                                <input th:field="*{agtDateNaissance}" type="text" class="form-control" id="mdate">
-                                <label class="m-t-40 form-label">Date de naissance</label>
-                                <input type="text" id="min-date-fr" class="form-control">
-                            </div>
-                            <div class="form-group m-b-40">
-                                <select th:field="*{agtStrId}" class="select2 form-control form-select">
-                                    <option value="">Selectionnez la structure</option>
-                                        <option th:each="str:${structuresParent}" th:value="${str.strId}" th:text="${str.strLibelle}"></option>
-                                </select>
-                            </div>
-
-                            <div class="form-group m-b-40">
-                                <select th:field="*{agtFonId}" class="select2 form-control form-select">
-                                    <option value="">Selectionnez la fonction</option>
-                                    <option th:each="fonction:${typeFonction}" th:value="${fonction.typId}" th:text="${fonction.typLibelle}"></option>
-                                </select>
-                            </div>
-
-                            <div class="form-group m-b-40">
-                                <select th:field="*{agtGradeId}" class="select2 form-control form-select">
-                                    <option value="">Selectionnez le grade</option>
-                                    <option th:each="grade:${grades}" th:value="${grade.typId}" th:text="${grade.typLibelle}"></option>
-                                </select>
-                            </div>
-
-
-                            <div class="form-group m-b-40">
-                                <input th:field="*{agtUserName}" type="text" class="form-control" id="login">
-                                <span class="bar"></span>
-                                <label for="login">Login</label>
-                            </div>
-                            <div class="form-group m-b-40">
-                                <input th:field="*{agtPassword}" type="password" class="form-control" id="input2">
-                                <span class="bar"></span>
-                                <label for="input2">Password</label>
-                            </div>
-                            <div class="form-group m-b-40">
-                                <input type="password" class="form-control" id="ConfirmPassword">
-                                <span class="bar"></span>
-                                <label for="ConfirmPassword">Confirmation</label>
-                            </div>
 
 
                             <button  type="submit" class="btn btn-rounded btn-outline-info fa-pull-right">Enregistrer</button>
-                            <a th:href="@{/agent/index}" type="button" class="btn btn-rounded btn-outline-dark fa-pull-left">Fermer</a>
-
+                            <a th:href="@{/parametres/structure/indexPere}" type="button" class="btn btn-rounded btn-outline-dark fa-pull-left">Fermer</a>
                         </div>
                     </div>
                 </div>
@@ -175,5 +139,6 @@
     <!-- End Right sidebar -->
     <!-- ============================================================== -->
 </div>
+
 </body>
 </html>

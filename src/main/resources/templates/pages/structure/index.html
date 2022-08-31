@@ -31,7 +31,9 @@
             </div>
         </div>
         <div class="col-md-2">
-            <a data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg" type="button" class="btn btn-outline-info btn-rounded m-t-10 float-end">Nouvelle opération</a>
+<!--            <a data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg" type="button" class="btn btn-outline-info btn-rounded m-t-10 float-end">Nouvelle structure</a>-->
+            <a th:href="@{/parametres/structure/add}" type="button" class="btn btn-outline-info btn-rounded m-t-10 float-end">Nouvelle structure</a>
+
         </div>
     </div>
     <!-- ============================================================== -->
@@ -180,28 +182,35 @@
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="myLargeModalLabel">Ajout d'un nouveau type</h4>
+                    <h4 class="modal-title" id="myLargeModalLabel">Ajout d'une nouvelle structure</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
                 </div>
                 <div class="modal-body">
-<!--                    <form th:action="@{/parametres/types/saveDetail}" method="POST" th:object="${type}" class="floating-labels m-t-40">-->
-<!--                        <input type="hidden" name="typId" th:field="*{type.typId}">-->
-<!--                        <div class="form-group m-b-30 m-t-40" >-->
-<!--                            <div class="form-group m-b-40">-->
-<!--                                <input th:field="*{typCode}" readonly="true" type="text" class="form-control" id="code">-->
-<!--                                <span class="bar"></span>-->
-<!--                                <label for="code">Code</label>-->
-<!--                            </div>-->
-<!--                            <div class="form-group m-b-40">-->
-<!--                                <input th:field="*{typLibelle}" type="text" class="form-control" id="nom">-->
-<!--                                <span class="bar"></span>-->
-<!--                                <label for="nom">Abregé</label>-->
-<!--                            </div>-->
-<!--                            <button  type="submit" class="btn btn-rounded btn-outline-info fa-pull-right">Enregistrer bvxfg</button>-->
-<!--                            <a data-bs-dismiss="modal" type="button" class="btn btn-rounded btn-outline-dark fa-pull-left">Fermer</a>-->
-<!--                        </div>-->
+                    <form  method="POST"  class="floating-labels m-t-40">
+                        <div class="form-group m-b-30 m-t-40" >
+                            <div class="form-group m-b-40">
+                                <input  type="text" class="form-control" id="code">
+                                <span class="bar"></span>
+                                <label for="code">Code</label>
+                            </div>
 
-<!--                    </form>-->
+                            <div class="form-group m-b-30 m-t-40">
+                                <select  class="select2 form-control form-select">
+                                    <option value="">Selectionnez la structure</option>
+                                    <option value="">structure</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group m-b-40">
+                                <input type="text" class="form-control" id="nom">
+                                <span class="bar"></span>
+                                <label for="nom">Abregé</label>
+                            </div>
+                            <button  type="submit" class="btn btn-rounded btn-outline-info fa-pull-right">Enregistrer</button>
+                            <a data-bs-dismiss="modal" type="button" class="btn btn-rounded btn-outline-dark fa-pull-left">Fermer</a>
+                        </div>
+
+                    </form>
                 </div>
             </div>
             <!-- /.modal-content -->
