@@ -60,7 +60,7 @@
 
           </ul>
         </li>
-        <li th:if="${@scs.hasAuthority('DEV')}"> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-settings"></i><span class="hide-menu">Données parametre</span></a>
+        <li th:if="${@scs.hasAuthority('ADMIN','DEV')}"> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-settings"></i><span class="hide-menu">Données parametre</span></a>
           <ul aria-expanded="false" class="collapse">
             <li><a th:href="@{/admin/utilisateur/index}">Utilisateurs</a></li>
             <li><a th:href="@{/admin/role/index}">Roles</a></li>

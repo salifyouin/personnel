@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/template}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<body layout:fragment="content">
+<div class="container-fluid">
+    <!-- ============================================================== -->
+    <!-- Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <div class="row page-titles">
+        <div class="col-md-3 align-self-center">
+            <h4 class="text-themecolor">Détails de la structure xx</h4>
+        </div>
+        <div class="col-md-5">
+
+        </div>
+
+
+        <div class="row">
+            <!-- Column -->
+            <div class="col-lg-3 col-xlg-2 col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <center class="m-t-30"> <img src="/assets/images/users/5.jpg" class="img-circle" width="150" />
+                            <h4 class="card-title m-t-10">YOUIN Salif</h4>
+                            <h6 class="card-subtitle">Directeur Géneral</h6>
+                            <div class="row text-center justify-content-md-center">
+                                <div class="col-6"><a href="javascript:void(0)" class="link"><i class="icon-people"></i> <font class="font-medium">254</font></a></div>
+                                <div class="col-6"><a href="javascript:void(0)" class="link"><i class="icon-picture"></i> <font class="font-medium">54</font></a></div>
+                            </div>
+                        </center>
+                    </div>
+                    <div>
+                        <hr> </div>
+                    <div class="card-body"> <small class="text-muted">Email address </small>
+                        <h6>hannagover@gmail.com</h6> <small class="text-muted p-t-30 db">Phone</small>
+                        <h6>+91 654 784 547</h6> <small class="text-muted p-t-30 db">Address</small>
+                        <h6>71 Pilgrim Avenue Chevy Chase, MD 20815</h6>
+
+                        <br/>
+                        <br/>
+                        <br/>
+                        <button class="btn btn-circle btn-secondary"><i class="fab fa-facebook-f"></i></button>
+                        <button class="btn btn-circle btn-secondary"><i class="fab fa-twitter"></i></button>
+                        <button class="btn btn-circle btn-secondary"><i class="fab fa-youtube"></i></button>
+                    </div>
+                </div>
+            </div>
+            <!-- Column -->
+            <!-- Column -->
+            <div class="col-lg-9 col-xlg-10 col-md-8">
+                <div class="card">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs profile-tab" role="tablist">
+                        <li class="nav-item"> <a class="nav-link active" data-bs-toggle="tab" href="#home" role="tab" aria-selected="true">Structure sous tutelle</a> </li>
+                        <li class="nav-item"> <a class="nav-link" data-bs-toggle="tab" href="#agent" role="tab" aria-selected="false">Agents</a> </li>
+                        <li class="nav-item"> <a class="nav-link" data-bs-toggle="tab" href="#profile" role="tab" aria-selected="false">Historique</a> </li>
+                        <li class="nav-item"> <a class="nav-link" data-bs-toggle="tab" href="#settings" role="tab" aria-selected="false">Modification</a> </li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="home" role="tabpanel">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table  id="mainTable" class="table editable-table table-bordered table-striped m-b-0 color-table info-table">
+                                        <thead>
+                                            <th>Sigle</th>
+                                            <th>Libelle</th>
+                                            <th>tutelle</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        <tr>
+                                            <td class="col-md-2"></td>
+                                            <td class="col-md-5"></td>
+                                            <td class="col-md-4"></td>
+                                            <td class="col-md-1">
+                                                <div class="btn-group">
+                                                    <button type="button"
+                                                            class="btn btn-outline-danger waves-effect waves-light">
+                                                        <i class="ti-trash"></i>
+                                                    </button>
+
+                                                    <button type="button"
+                                                            class="btn btn-outline-info waves-effect waves-light">
+                                                        <i class="ti-eye"></i>
+                                                    </button>
+
+                                                    <button
+                                                            class="btn btn-outline-primary waves-effect waves-light">
+                                                        <i class="ti-pencil"></i>
+                                                    </button>
+
+                                                    <button type="button"
+                                                            class="btn btn-outline-success waves-effect waves-light">
+                                                        <i class=" ti-control-forward"></i>
+                                                    </button></div>
+
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="agent" role="tabpanel">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table  class="table editable-table table-bordered table-striped m-b-0 color-table info-table">
+                                        <thead>
+                                        <tr>
+                                            <th>Matricule</th>
+                                            <th>Nom</th>
+                                            <th>Prenom</th>
+                                            <th>Fonction</th>
+                                            <th>Structure</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        <tr>
+                                            <td class="col-md-1" ></td>
+                                            <td class="col-md-2"></td>
+                                            <td class="col-md-3"></td>
+                                            <td class="col-md-2"></td>
+                                            <td class="col-md-3"></td>
+                                            <td class="col-md-1">
+                                                <div class="btn-group">
+                                                    <button type="button"
+                                                            class="btn btn-outline-danger waves-effect waves-light">
+                                                        <i class="ti-trash"></i>
+                                                    </button>
+
+                                                    <button type="button"
+                                                            class="btn btn-outline-info waves-effect waves-light">
+                                                        <i class="ti-eye"></i>
+                                                    </button>
+
+                                                    <button
+                                                            class="btn btn-outline-primary waves-effect waves-light">
+                                                        <i class="ti-pencil"></i>
+                                                    </button>
+
+                                                    <button type="button"
+                                                            class="btn btn-outline-success waves-effect waves-light">
+                                                        <i class=" ti-control-forward"></i>
+                                                    </button></div>
+
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!--second tab-->
+                        <div class="tab-pane" id="profile" role="tabpanel">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table  class="table editable-table table-bordered table-striped m-b-0 color-table info-table">
+                                        <thead>
+                                        <tr>
+                                            <th>Sigle</th>
+                                            <th>Libelle</th>
+                                            <th>Tutelle</th>
+                                            <th>Action</th>
+                                            <th>Acteur</th>
+                                            <th>Date</th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        <tr>
+                                            <td class="col-md-1" >DGPM</td>
+                                            <td class="col-md-3">Direction Générale des Marchés Publics</td>
+                                            <td class="col-md-3">Minisstère du Budget et du Portefeuille de l'Etat</td>
+                                            <td class="col-md-1">Création</td>
+                                            <td class="col-md-2">YOUIN Salif</td>
+                                            <td class="col-md-1">09/09/2022 16:30</td>
+                                            <td class="col-md-1">
+                                                <div class="btn-group">
+                                                    <button type="button"
+                                                            class="btn btn-outline-danger waves-effect waves-light">
+                                                        <i class="ti-trash"></i>
+                                                    </button>
+
+                                                    <button type="button"
+                                                            class="btn btn-outline-info waves-effect waves-light">
+                                                        <i class="ti-eye"></i>
+                                                    </button>
+
+                                                    <button
+                                                            class="btn btn-outline-primary waves-effect waves-light">
+                                                        <i class="ti-pencil"></i>
+                                                    </button>
+
+                                                    <button type="button"
+                                                            class="btn btn-outline-success waves-effect waves-light">
+                                                        <i class=" ti-control-forward"></i>
+                                                    </button></div>
+
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="settings" role="tabpanel">
+                            <div class="card-body">
+                             <form  method="post"  class="floating-labels m-t-40">
+
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-8">
+                                            <div class="form-group m-b-30 m-t-40" >
+                                                <div class="form-group m-b-40">
+                                                    <input  type="text" class="form-control" id="libelle" />
+                                                    <label for="libelle">Libelle</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group m-b-40">
+                                                <input  type="text" class="form-control" id="Sigle" />
+                                                <label for="Sigle">Sigle</label>
+                                            </div>
+                                            <button  type="submit" class="btn btn-rounded btn-outline-info fa-pull-right">Enregistrer</button>
+                                        </div>
+                                    </div>
+                            </div>
+                             </form>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        <div class="col-lg-3 col-xlg-2 col-md-4">
+
+        </div>
+          <div class="col-lg-9 col-xlg-10 col-md-8">
+              <button  type="submit" class="btn btn-rounded btn-outline-danger fa-pull-right">Supprimer la structure</button>
+              <a th:href="@{/parametres/structure/index}" type="button" class="btn btn-rounded btn-outline-dark fa-pull-left">Fermer</a>
+          </div>
+            <!-- Column -->
+        </div>
+
+    <!-- ============================================================== -->
+    <!-- End PAge Content -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Right sidebar -->
+    <!-- ============================================================== -->
+    <!-- .right-sidebar -->
+    <div class="right-sidebar">
+        <div class="slimscrollright">
+            <div class="rpanel-title"> Service Panel <span><i class="ti-close right-side-toggle"></i></span> </div>
+            <div class="r-panel-body">
+                <ul id="themecolors" class="m-t-20">
+                    <li><b>With Light sidebar</b></li>
+                    <li><a href="javascript:void(0)" data-skin="skin-default" class="default-theme">1</a></li>
+                    <li><a href="javascript:void(0)" data-skin="skin-green" class="green-theme">2</a></li>
+                    <li><a href="javascript:void(0)" data-skin="skin-red" class="red-theme">3</a></li>
+                    <li><a href="javascript:void(0)" data-skin="skin-blue" class="blue-theme">4</a></li>
+                    <li><a href="javascript:void(0)" data-skin="skin-purple" class="purple-theme">5</a></li>
+                    <li><a href="javascript:void(0)" data-skin="skin-megna" class="megna-theme working">6</a></li>
+                    <li class="d-block m-t-30"><b>With Dark sidebar</b></li>
+                    <li><a href="javascript:void(0)" data-skin="skin-default-dark" class="default-dark-theme ">7</a></li>
+                    <li><a href="javascript:void(0)" data-skin="skin-green-dark" class="green-dark-theme">8</a></li>
+                    <li><a href="javascript:void(0)" data-skin="skin-red-dark" class="red-dark-theme">9</a></li>
+                    <li><a href="javascript:void(0)" data-skin="skin-blue-dark" class="blue-dark-theme">10</a></li>
+                    <li><a href="javascript:void(0)" data-skin="skin-purple-dark" class="purple-dark-theme">11</a></li>
+                    <li><a href="javascript:void(0)" data-skin="skin-megna-dark" class="megna-dark-theme ">12</a></li>
+                </ul>
+                <ul class="m-t-20 chatonline">
+                    <li><b>Chat option</b></li>
+                    <li>
+                        <a href="javascript:void(0)"><img src="assets/images/users/1.jpg" alt="appUser-img" class="img-circle"> <span>Varun Dhavan <small class="text-success">online</small></span></a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)"><img src="assets/images/users/2.jpg" alt="appUser-img" class="img-circle"> <span>Genelia Deshmukh <small class="text-warning">Away</small></span></a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)"><img src="assets/images/users/3.jpg" alt="appUser-img" class="img-circle"> <span>Ritesh Deshmukh <small class="text-danger">Busy</small></span></a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)"><img src="assets/images/users/4.jpg" alt="appUser-img" class="img-circle"> <span>Arijit Sinh <small class="text-muted">Offline</small></span></a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)"><img src="assets/images/users/5.jpg" alt="appUser-img" class="img-circle"> <span>Govinda Star <small class="text-success">online</small></span></a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)"><img src="assets/images/users/6.jpg" alt="appUser-img" class="img-circle"> <span>John Abraham<small class="text-success">online</small></span></a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)"><img src="assets/images/users/7.jpg" alt="appUser-img" class="img-circle"> <span>Hritik Roshan<small class="text-success">online</small></span></a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)"><img src="assets/images/users/8.jpg" alt="appUser-img" class="img-circle"> <span>Pwandeep rajan <small class="text-success">online</small></span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--    Modale saisie type parent-->
+    <!--    <div data-th-replace="Fragments/fr-menu::menu">-->
+    <!--    </div>-->
+
+
+    <!-- ============================================================== -->
+    <!-- End Right sidebar -->
+    <!-- ============================================================== -->
+</div>
+</body>
+</html>

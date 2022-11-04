@@ -40,8 +40,96 @@
     <!-- ============================================================== -->
     <!-- Start Page Content -->
     <!-- ============================================================== -->
-        <div id="str-treeview" class="">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs customtab2" role="tablist">
+                        <li class="nav-item"> <a class="nav-link active" data-bs-toggle="tab" href="#home7" role="tab" aria-selected="true"><span class="hidden-sm-up"><i class="ti-home"></i></span> <span class="hidden-xs-down">Accueil</span></a> </li>
+                        <li class="nav-item"> <a class="nav-link " data-bs-toggle="tab" href="#profile7" role="tab" aria-selected="false"><span class="hidden-sm-up"><i class="ti-user"></i></span> <span class="hidden-xs-down">Historique</span></a> </li>
+<!--                        <li class="nav-item"> <a class="nav-link" data-bs-toggle="tab" href="#messages7" role="tab" aria-selected="false"><span class="hidden-sm-up"><i class="ti-email"></i></span> <span class="hidden-xs-down">Messages</span></a> </li>-->
+                    </ul>
+                    <!-- Tab panes -->
+                    <!--contenu ici-->
+                    <div class="tab-content">
+                            <div class="tab-pane p-20 active" id="home7" role="tabpanel">
+                    <div class="table-responsive">
+                        <table  id="mainTable" class="table editable-table table-bordered table-striped m-b-0 color-table info-table">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Code</th>
+                                <th>Libelle</th>
+                                <th>Sigle</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="structure:${listeStructures}">
+                                <td class="col-md-1" th:text="${structure.strId}"></td>
+                                <td class="col-md-2" th:text="${structure.strSigle}"></td>
+                                <td class="col-md-6" th:text="${structure.strLibelle}"></td>
+                                <td class="col-md-2" th:text="${structure.strSigle}"></td>
+                                <td class="col-md-1">
+                                    <div class="btn-group">
+                                        <button type="button"
+                                                class="btn btn-outline-danger waves-effect waves-light">
+                                            <i class="ti-trash"></i>
+                                        </button>
+
+                                        <a  type="button"
+                                                class="btn btn-outline-info waves-effect waves-light">
+                                            <i class="ti-eye"></i>
+                                        </a>
+
+                                        <button class="btn btn-outline-primary waves-effect waves-light" data-bs-toggle="modal">
+                                            <i class="ti-pencil"></i>
+                                        </button>
+                                        <a th:href="@{/parametres/structure/historique}"
+                                                class="btn btn-outline-success waves-effect waves-light">
+                                            <i class=" ti-control-forward"></i>
+                                        </a>
+                                    </div>
+
+                                </td>
+<!--                                Ici-->
+                            </tr>
+                            </tbody>
+                        </table>
+
+
+                    </div>
+<!--               Pagination-->
+                    <ul class="pagination mt-3">
+                        <li class="paginate_button page-item previous" id="example23_previous"><a href="#"
+                                                                                                  aria-controls="example23"
+                                                                                                  data-dt-idx="0"
+                                                                                                  tabindex="0"
+                                                                                                  class="page-link">Previous</a>
+                        </li>
+
+                        <li th:each="page,status:${pages}" th:class="${status.index==currentPage?'paginate_button page-item active':'paginate_button page-item'}" >
+                            <a th:text="${status.index}" th:href="@{/parametres/structure/index(page=${status.index},critere=${critere})}" aria-controls="example23" data-dt-idx="3" tabindex="0" class="page-link">3</a></li>
+
+                        <li class="paginate_button page-item next" id="example23_next"><a href="#"
+                                                                                          aria-controls="example23"
+                                                                                          data-dt-idx="7" tabindex="0"
+                                                                                          class="page-link">Next</a>
+                        </li>
+                    </ul>
+
+                        </div>
+
+
+                        <div class="tab-pane p-20" id="profile7" role="tabpanel">2</div>
+<!--                        <div class="tab-pane p-20" id="messages7" role="tabpanel">3</div>-->
+                    </div>
+                </div>
+            </div>
         </div>
+
+    </div>
 
     <!-- ============================================================== -->
     <!-- End PAge Content -->

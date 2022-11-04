@@ -33,5 +33,8 @@ public class HistoStructure {
     private LocalDateTime createdAt;
     @Embedded
     private HistoData histoData;
+    private String adresseIp;
+    private byte[] adresseMac;
+    private String hostName;
 
 }

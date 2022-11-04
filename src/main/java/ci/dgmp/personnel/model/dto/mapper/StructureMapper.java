@@ -18,5 +18,6 @@ public interface StructureMapper {
 
     @Mapping(target = "tutelleDirecte", expression = "java(dto.getStrStrId()==null ? null : new ci.dgmp.personnel.model.entities.Structure(dto.getStrStrId()))")
     @Mapping(target = "type", expression = "java(dto.getStrtypId()==null ? null : new ci.dgmp.personnel.model.entities.Type(dto.getStrtypId()))")
+    @Mapping(target = "strStatut", expression = "java(true)")
     public Structure mapToStructure(StructureReqDto dto);
 }

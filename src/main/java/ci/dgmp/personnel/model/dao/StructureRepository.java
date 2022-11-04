@@ -53,5 +53,9 @@ public interface StructureRepository extends JpaRepository<Structure, Long> {
     //List<Structure> findStructureByStructureStrId(Long strId);
     @Query("select s from Structure s where s.tutelleDirecte.strId = ?1")
     List<Structure> findStructureByTutelleDirecte(Long strId);
+
+    List<Structure> findByStrLevel(long strLevel);
+
+
     //List<Type> findTypeByType_TypId(long id);
 }

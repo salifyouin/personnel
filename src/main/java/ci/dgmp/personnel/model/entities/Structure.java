@@ -3,8 +3,11 @@ package ci.dgmp.personnel.model.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +16,6 @@ import java.util.List;
 @Data
 @Builder
 @Entity
-@ToString
 public class Structure {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,6 +23,7 @@ public class Structure {
     private String strCode;
     private String strSigle;
     private String strLibelle;
+    private Boolean strStatut;
     private long strLevel;
     @ManyToOne
     @JoinColumn(name = "str_tutelle_directe_Id") @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
@@ -30,6 +33,16 @@ public class Structure {
     private Type type;
     public Structure(Long strId) {
         this.strId = strId;
+    }
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
+
+    @Override
+    public String toString()
+    {
+        return strSigle + " : " + strLibelle ;
     }
 
     public Structure(Long strId, String strCode, String strSigle, String strLibelle, Structure tutelleDirecte, Type type) {
