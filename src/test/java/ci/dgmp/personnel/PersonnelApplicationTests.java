@@ -1,12 +1,12 @@
-package ci.dgmp.sigrh;
+package ci.dgmp.personnel;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+//@SpringBootTest
 class PersonnelApplicationTests {
 
-    @Test
+    //@Test
     void contextLoads() {
     }
 
